@@ -1,13 +1,7 @@
 package com.examples.test.xml;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.examples.test.util.XmlUtils;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,9 +14,11 @@ import java.util.Set;
 public class XmlTest {
 
     public static void main(String[] args) {
-        XmlTest xmlTest = new XmlTest();
-        xmlTest.pojoToXml();
-        xmlTest.xmlToPojo();
+        Category category  = initCategory();
+
+        XmlUtils.pojoToXml(category, "D:\\category.xml");
+        XmlUtils.xmlToPojo(category, "D:\\category.xml");
+
         //输出结果
         /*
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -32,41 +28,6 @@ public class XmlTest {
             <products createDate="2020-11-12T15:11:19.261+08:00" price="5200.99" productID="p2" productName="手机"/>
         </category>
         */
-    }
-
-    private void pojoToXml() {
-        Category category  = initCategory();
-        //实体类转化成xml
-        try {
-            JAXBContext jAXBContext = JAXBContext.newInstance(Category.class);
-            try {
-                FileWriter categoryFile = new FileWriter("D:\\category.xml");
-                Marshaller marshaller = jAXBContext.createMarshaller();
-                marshaller.marshal(category, categoryFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void xmlToPojo() {
-        //xml转成实体对象
-        try {
-            JAXBContext jAXBContextW;
-            try {
-                jAXBContextW = JAXBContext.newInstance(Category.class);
-                FileReader categoryFileRead = new FileReader("D:\\category.xml");
-                Unmarshaller unmarshaller = jAXBContextW.createUnmarshaller();
-                Category categoryW = (Category) unmarshaller.unmarshal(categoryFileRead);
-                System.out.println("种类的名称为："+categoryW.getCategoryName());
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public static Category initCategory(){
