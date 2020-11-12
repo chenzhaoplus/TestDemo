@@ -1,7 +1,9 @@
 package com.examples.test;
 
 import com.alibaba.fastjson.JSONObject;
+import com.examples.test.kettle.entity.Connection;
 import com.examples.test.util.GsonUtils;
+import com.examples.test.util.JaxbUtil;
 
 import java.util.Date;
 

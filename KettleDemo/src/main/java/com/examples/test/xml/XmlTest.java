@@ -1,5 +1,7 @@
 package com.examples.test.xml;
 
+import com.examples.test.kettle.entity.Connection;
+import com.examples.test.util.JaxbUtil;
 import com.examples.test.util.XmlUtils;
 
 import java.util.Date;
@@ -14,10 +16,37 @@ import java.util.Set;
 public class XmlTest {
 
     public static void main(String[] args) {
+        //pojo类和xml文件互转
         Category category  = initCategory();
 
         XmlUtils.pojoToXml(category, "D:\\category.xml");
         XmlUtils.xmlToPojo(category, "D:\\category.xml");
+
+        //pojo类和xml字符串互转
+        try {
+            String xml = JaxbUtil.convertToXml(category);
+            System.out.println(xml);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //pojo类和xml字符串互转
+        Connection connection = new Connection();
+        connection.setCommit("0");
+        connection.setName("dev-mysql-172.16.4.83");
+        connection.setServer("172.16.4.83");
+        connection.setType("MYSQL");
+        connection.setAccess("Native");
+        connection.setDatabase("ibmp");
+        connection.setPort("3306");
+        connection.setUsername("ibmp_test");
+        connection.setPassword("Encrypted 585a64666a5849457372756d47726644eaf5c9a41ec586a5be288d55fda7abd6");
+        try {
+            String xml = JaxbUtil.convertToXml(connection);
+            System.out.println(xml);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //输出结果
         /*

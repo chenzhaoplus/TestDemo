@@ -2,8 +2,12 @@ package com.examples.test.kettle;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.examples.test.kettle.entity.Connection;
 import com.examples.test.util.DateUtils;
+import com.examples.test.util.JaxbUtil;
 import org.apache.commons.io.FileUtils;
 import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
@@ -28,32 +32,26 @@ public class TransDemo {
     /**
      * 数据库连接信息,适用于DatabaseMeta其中 一个构造器DatabaseMeta(String xml)
      */
-    public static final String[] databasesXML = {
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                    "<connection>" +
-                    "<commit>0</commit>" +
-                    "<name>dev-mysql-172.16.4.83</name>" +
-                    "<server>172.16.4.83</server>" +
-                    "<type>MYSQL</type>" +
-                    "<access>Native</access>" +
-                    "<database>ibmp</database>" +
-                    "<port>3306</port>" +
-                    "<username>ibmp_test</username>" +
-                    "<password>Encrypted 585a64666a5849457372756d47726644eaf5c9a41ec586a5be288d55fda7abd6</password>" +
-                    "</connection>",
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                    "<connection>" +
-                    "<commit>0</commit>" +
-                    "<name>dev-mysql-172.16.4.83</name>" +
-                    "<server>172.16.4.83</server>" +
-                    "<type>MYSQL</type>" +
-                    "<access>Native</access>" +
-                    "<database>ibmp</database>" +
-                    "<port>3306</port>" +
-                    "<username>ibmp_test</username>" +
-                    "<password>Encrypted 585a64666a5849457372756d47726644eaf5c9a41ec586a5be288d55fda7abd6</password>" +
-                    "</connection>"
-    };
+    public static final Set<String> databasesXML = new HashSet<>();
+    static {
+        Connection connection = new Connection();
+        connection.setCommit("0");
+        connection.setName("dev-mysql-172.16.4.83");
+        connection.setServer("172.16.4.83");
+        connection.setType("MYSQL");
+        connection.setAccess("Native");
+        connection.setDatabase("ibmp");
+        connection.setPort("3306");
+        connection.setUsername("ibmp_test");
+        connection.setPassword("Encrypted 585a64666a5849457372756d47726644eaf5c9a41ec586a5be288d55fda7abd6");
+        try {
+            String xml = JaxbUtil.convertToXml(connection);
+            databasesXML.add(xml);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * @param args
      */
@@ -73,7 +71,6 @@ public class TransDemo {
             e.printStackTrace();
             return;
         }
-
     }
 
     /**
@@ -82,19 +79,19 @@ public class TransDemo {
      * @throws KettleXMLException
      */
     public TransMeta generateMyOwnTrans() throws KettleXMLException{
-
         System.out.println("************start to generate my own transformation***********");
-
         TransMeta transMeta = new TransMeta();
-
         //设置转化的名称
         transMeta.setName("insert_update");
-
         //添加转换的数据库连接
-        for (int i=0;i<databasesXML.length;i++){
-            DatabaseMeta databaseMeta = new DatabaseMeta(databasesXML[i]);
+        for(String p:databasesXML){
+            DatabaseMeta databaseMeta = new DatabaseMeta(p);
             transMeta.addDatabase(databaseMeta);
         }
+//        for (int i=0;i<databasesXML.length;i++){
+//            DatabaseMeta databaseMeta = new DatabaseMeta(databasesXML[i]);
+//            transMeta.addDatabase(databaseMeta);
+//        }
 
         //registry是给每个步骤生成一个标识Id用
         PluginRegistry registry = PluginRegistry.getInstance();
