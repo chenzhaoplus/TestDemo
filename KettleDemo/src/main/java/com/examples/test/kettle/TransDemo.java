@@ -26,29 +26,6 @@ import java.util.Set;
 @Slf4j
 public class TransDemo {
     /**
-     * 数据库连接信息,适用于DatabaseMeta其中 一个构造器DatabaseMeta(String xml)
-     */
-    public static final Set<String> databasesXML = new HashSet<>();
-    static {
-        Connection connection = new Connection();
-        connection.setCommit("0");
-        connection.setName("dev-mysql-172.16.4.83");
-        connection.setServer("172.16.4.83");
-        connection.setType("MYSQL");
-        connection.setAccess("Native");
-        connection.setDatabase("ibmp");
-        connection.setPort("3306");
-        connection.setUsername("ibmp_test");
-        connection.setPassword("Encrypted 585a64666a5849457372756d47726644eaf5c9a41ec586a5be288d55fda7abd6");
-        try {
-            String xml = JaxbUtil.convertToXml(connection);
-            databasesXML.add(xml);
-        } catch (Exception e) {
-            log.error("[数据源链接初始失败], e = {}", e.getMessage());
-        }
-    }
-
-    /**
      * @param args
      */
     public static void main(String[] args) {
@@ -71,6 +48,7 @@ public class TransDemo {
      */
     private TransMeta generateTrans(String transMetaName) throws KettleXMLException{
         log.info("************start to generate my own transformation***********");
+        Set<String> databasesXML = initDbConnection();
         TransMeta transMeta = KettleUtils.initTransMeta(transMetaName, databasesXML);
         DatabaseMeta dbMeta = transMeta.findDatabase("dev-mysql-172.16.4.83");
         StepMeta tableInputStep = initTableInputStep(transMeta, dbMeta);
@@ -79,6 +57,28 @@ public class TransDemo {
         transMeta.addTransHop(new TransHopMeta(tableInputStep, insertUpdateStep));
         log.info("***********the end************");
         return transMeta;
+    }
+
+    private Set<String> initDbConnection(){
+        Set<String> databasesXML = new HashSet<>();
+        Connection connection = new Connection();
+        connection.setCommit("0");
+        connection.setName("dev-mysql-172.16.4.83");
+        connection.setServer("172.16.4.83");
+        connection.setType("MYSQL");
+        connection.setAccess("Native");
+        connection.setDatabase("ibmp");
+        connection.setPort("3306");
+        connection.setUsername("ibmp_test");
+        String encryPassword = KettleUtils.encryPassword("XZdfjXIEsrumGrfFTmfltbtAuQCECUdl");
+        connection.setPassword(encryPassword);
+        try {
+            String xml = JaxbUtil.convertToXml(connection);
+            databasesXML.add(xml);
+        } catch (Exception e) {
+            log.error("[数据源链接初始失败], e = {}", e.getMessage());
+        }
+        return databasesXML;
     }
 
     /**

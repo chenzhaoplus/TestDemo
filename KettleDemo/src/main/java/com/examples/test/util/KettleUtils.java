@@ -2,6 +2,7 @@ package com.examples.test.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.pentaho.di.core.database.DatabaseMeta;
+import org.pentaho.di.core.encryption.Encr;
 import org.pentaho.di.core.exception.KettleXMLException;
 import org.pentaho.di.core.plugins.PluginRegistry;
 import org.pentaho.di.core.plugins.PluginTypeInterface;
@@ -92,11 +93,21 @@ public class KettleUtils {
         return stepMeta;
     }
 
+    /**
+     * 初始化插入/更新元数据
+     * @param dbMeta
+     * @param tableName
+     * @return
+     */
     public static InsertUpdateMeta initInsertUpdateMeta(DatabaseMeta dbMeta, String tableName){
         InsertUpdateMeta insertUpdateMeta = new InsertUpdateMeta();
         insertUpdateMeta.setDatabaseMeta(dbMeta);
         insertUpdateMeta.setTableName(tableName);
         return insertUpdateMeta;
+    }
+
+    public static String encryPassword(String s){
+        return Encr.encryptPasswordIfNotUsingVariables(s);
     }
 
 }
