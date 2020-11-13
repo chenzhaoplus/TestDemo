@@ -19,8 +19,8 @@ public class XmlTest {
         //pojo类和xml文件互转
         Category category  = initCategory();
 
-        XmlUtils.pojoToXml(category, "D:\\category.xml");
-        XmlUtils.xmlToPojo(category, "D:\\category.xml");
+        XmlUtils.pojoToXmlFile(category, "D:\\category.xml");
+        XmlUtils.xmlFileToPojo(category, "D:\\category.xml");
 
         //pojo类和xml字符串互转
         try {

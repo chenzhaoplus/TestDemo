@@ -3,15 +3,13 @@ package com.examples.test.util;
 import com.examples.test.xml.Category;
 import com.examples.test.xml.XmlTest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @Author: cz
@@ -22,12 +20,26 @@ import java.io.IOException;
 public class XmlUtils {
 
     /**
-     * 实体类转化成xml
+     * xml字符串转文件
+     * @param filePath
+     * @param xmlStr
+     */
+    public static void xmlStrToFile(String filePath, String xmlStr){
+        try {
+            File file = new File(filePath);
+            FileUtils.writeStringToFile(file, xmlStr, "UTF-8");
+        } catch (IOException e) {
+            log.error("[xml转文件失败], e = {}", e.getMessage());
+        }
+    }
+
+    /**
+     * 实体类转化成xml文件
      * @param bean
      * @param filePath
      * @param <T>
      */
-    public static <T> void pojoToXml(T bean, String filePath) {
+    public static <T> void pojoToXmlFile(T bean, String filePath) {
         try {
             JAXBContext jAXBContext = JAXBContext.newInstance(bean.getClass());
             try {
@@ -42,7 +54,13 @@ public class XmlUtils {
         }
     }
 
-    public static <T> void xmlToPojo(T bean, String filePath) {
+    /**
+     * xml文件转换成实体类
+     * @param bean
+     * @param filePath
+     * @param <T>
+     */
+    public static <T> void xmlFileToPojo(T bean, String filePath) {
         //xml转成实体对象
         try {
             JAXBContext jAXBContextW;

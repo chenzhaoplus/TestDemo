@@ -91,7 +91,7 @@
     </dependency>
     <!--commons end-->
 
-    <!--kettle-->
+    <!--kettle begin-->
     <dependency>
       <groupId>pentaho-kettle</groupId>
       <artifactId>kettle-core</artifactId>
@@ -102,16 +102,17 @@
       <artifactId>kettle-engine</artifactId>
       <version>${kettle.version}</version>
     </dependency>
-    <dependency>
-      <groupId>pentaho-kettle</groupId>
-      <artifactId>kettle-dbdialog</artifactId>
-      <version>${kettle.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>pentaho-kettle</groupId>-->
+<!--      <artifactId>kettle-dbdialog</artifactId>-->
+<!--      <version>${kettle.version}</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>metastore</artifactId>
       <version>${kettle.version}</version>
     </dependency>
+    <!--kettle end-->
 
     <dependency>
       <groupId>org.slf4j</groupId>
