@@ -30,14 +30,13 @@ public class TransDemo {
      */
     public static void main(String[] args) {
         try {
-            String transMetaName = "trans" + DateUtils.format(new Date(), DateUtils.DATE_FOMATE_YYYYMMDDHHMMSS);
+            String metaName = "trans" + DateUtils.format(new Date(), DateUtils.DATE_FOMATE_YYYYMMDDHHMMSS);
             KettleEnvironment.init();
             TransDemo transDemo = new TransDemo();
-            TransMeta transMeta = transDemo.generateTrans(transMetaName);
-            XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + transMetaName +".ktr", transMeta.getXML());
+            TransMeta transMeta = transDemo.generateTrans(metaName);
+            XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName +".ktr", transMeta.getXML());
         } catch (Exception e) {
-            log.error("[kettle脚本生成失败], e = {}", e.getMessage());
-            return;
+            log.error("[kettle转换脚本生成失败], e = {}", e.getMessage());
         }
     }
 
@@ -46,10 +45,10 @@ public class TransDemo {
      * @return
      * @throws KettleXMLException
      */
-    private TransMeta generateTrans(String transMetaName) throws KettleXMLException{
+    private TransMeta generateTrans(String metaName) throws KettleXMLException{
         log.info("************start to generate my own transformation***********");
         Set<String> databasesXML = initDbConnection();
-        TransMeta transMeta = KettleUtils.initTransMeta(transMetaName, databasesXML);
+        TransMeta transMeta = KettleUtils.initTransMeta(metaName, databasesXML);
         DatabaseMeta dbMeta = transMeta.findDatabase("dev-mysql-172.16.4.83");
         StepMeta tableInputStep = initTableInputStep(transMeta, dbMeta);
         StepMeta insertUpdateStep = initInsertUpdateStep(transMeta, dbMeta);
