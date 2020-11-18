@@ -28,4 +28,35 @@ public class ThreadlocalPojo implements Serializable {
      */
     private Float score;
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getFeatureData() {
+        return featureData;
+    }
+
+    public void setFeatureData(String featureData) {
+        this.featureData = featureData;
+    }
+
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
+    }
 }

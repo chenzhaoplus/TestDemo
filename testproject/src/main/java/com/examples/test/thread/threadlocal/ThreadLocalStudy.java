@@ -38,10 +38,15 @@ public class ThreadLocalStudy {
         ThreadLocalStudy study = new ThreadLocalStudy();
 //        study.testThreadLocal();
         study.testStatic();
+        while (true){
+            System.out.println(threadlocalPojo.getAge());
+            Thread.sleep(3000);
+        }
     }
 
     /**
      * 测试threadLocal里的对象，在多线程里是否相互影响
+     * 结论： 不影响
      */
     private void testThreadLocal(){
         for(int i = 0; i<100; i++){
@@ -59,13 +64,18 @@ public class ThreadLocalStudy {
 
     /**
      * 测试静态变量放入threadlocal，多线程里面对象是否是同一个
+     * 结论：  静态对象在threadlocal里，多线程会有线程安全问题
      */
     private void testStatic(){
         for(int i = 0; i<100; i++){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("thread: " + Thread.currentThread().getName() + " result: " + tlStatic.get());
+                    ThreadlocalPojo threadlocalPojo = tlStatic.get();
+                    Long current = System.currentTimeMillis();
+                    threadlocalPojo.setAge(current.intValue());
+                    tlStatic.set(threadlocalPojo);
+                    System.out.println("thread: " + Thread.currentThread().getName() + " result: " + tlStatic.get() + " age: " + threadlocalPojo.getAge());
                 }
             }).start();
         }
