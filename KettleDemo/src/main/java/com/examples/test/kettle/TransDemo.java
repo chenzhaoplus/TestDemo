@@ -6,8 +6,8 @@ import com.examples.test.util.JaxbUtil;
 import com.examples.test.util.KettleUtils;
 import com.examples.test.util.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
+import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.exception.KettleXMLException;
 import org.pentaho.di.core.plugins.StepPluginType;
 import org.pentaho.di.trans.TransHopMeta;
@@ -29,14 +29,14 @@ public class TransDemo {
      * @param args
      */
     public static void main(String[] args) {
+        String metaName = "trans" + DateUtils.format(new Date(), DateUtils.DATE_FOMATE_YYYYMMDDHHMMSS);
+        KettleUtils.initEnviroment();
+        TransDemo transDemo = new TransDemo();
+        TransMeta transMeta = transDemo.generateTrans(metaName);
         try {
-            String metaName = "trans" + DateUtils.format(new Date(), DateUtils.DATE_FOMATE_YYYYMMDDHHMMSS);
-            KettleEnvironment.init();
-            TransDemo transDemo = new TransDemo();
-            TransMeta transMeta = transDemo.generateTrans(metaName);
             XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName +".ktr", transMeta.getXML());
-        } catch (Exception e) {
-            log.error("[kettle转换脚本生成失败], e = {}", e.getMessage());
+        } catch (KettleException e) {
+            log.error("[kettle转换脚本获取xml失败], e = {}", e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class TransDemo {
      * @return
      * @throws KettleXMLException
      */
-    private TransMeta generateTrans(String metaName) throws KettleXMLException{
+    private TransMeta generateTrans(String metaName) {
         log.info("************start to generate my own transformation***********");
         Set<String> databasesXML = initDbConnection();
         TransMeta transMeta = KettleUtils.initTransMeta(metaName, databasesXML);

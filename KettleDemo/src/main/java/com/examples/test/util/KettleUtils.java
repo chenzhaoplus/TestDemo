@@ -1,8 +1,10 @@
 package com.examples.test.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.encryption.Encr;
+import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.exception.KettleXMLException;
 import org.pentaho.di.core.plugins.PluginRegistry;
 import org.pentaho.di.core.plugins.PluginTypeInterface;
@@ -32,6 +34,18 @@ public class KettleUtils {
             return PluginRegistry.getInstance();
         }
     };
+
+    /**
+     * 初始化kettle环境
+     */
+    public static void initEnviroment(){
+        log.info("[kettle环境初始化开始]");
+        try {
+            KettleEnvironment.init();
+        } catch (KettleException e) {
+            log.error("[kettle环境初始化失败], e = {}", e.getMessage());
+        }
+    }
 
     /**
      * 获取插件id
