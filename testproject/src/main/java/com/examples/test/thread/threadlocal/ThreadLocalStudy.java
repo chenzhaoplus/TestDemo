@@ -14,6 +14,9 @@ import java.util.Date;
  */
 public class ThreadLocalStudy {
 
+    /**
+     * 使用threadlocal要注意防止内存泄露，最好在线程完成之前执行一下threadLocal.remove()方法
+     */
     private static ThreadLocal<Integer> threadLocal = new ThreadLocal<Integer>() {
         @Override
         public Integer initialValue() {
