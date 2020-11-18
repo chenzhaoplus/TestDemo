@@ -42,6 +42,9 @@ public class JobDemo {
         JobEntrySpecial start = new JobEntrySpecial();
         start.setName("START");
         start.setStart(true);
+        start.setSchedulerType(JobEntrySpecial.INTERVAL);
+        start.setIntervalMinutes(0);
+        start.setIntervalSeconds(3);
         JobEntryCopy startEntry = new JobEntryCopy(start);
         startEntry.setDrawn(true);
         startEntry.setLocation(100, 100);
