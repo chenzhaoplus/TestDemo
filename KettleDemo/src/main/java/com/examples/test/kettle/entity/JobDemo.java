@@ -1,6 +1,7 @@
 package com.examples.test.kettle.entity;
 
 import com.examples.test.util.DateUtils;
+import com.examples.test.util.KettleUtils;
 import com.examples.test.util.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.pentaho.di.core.KettleEnvironment;
@@ -27,7 +28,7 @@ public class JobDemo {
             String metaName = "job" + DateUtils.format(new Date(), DateUtils.DATE_FOMATE_YYYYMMDDHHMMSS);
             KettleEnvironment.init();
             JobDemo jobDemo = new JobDemo();
-        JobMeta jobMeta = jobDemo.generateJob(metaName);
+            JobMeta jobMeta = jobDemo.generateJob(metaName);
 //            JobMeta jobMeta = jobDemo.generateJob2();
             XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName +".kjb", jobMeta.getXML());
         } catch (KettleException e) {
@@ -35,31 +36,51 @@ public class JobDemo {
         }
     }
 
+    /**
+     * 生成一个作业
+     * @param metaName
+     * @return
+     */
     private JobMeta generateJob(String metaName){
         JobMeta jobMeta = new JobMeta();
         jobMeta.setName(metaName);
+        JobEntryCopy startEntry = initJobEntrySpecial(jobMeta, "START");
+        JobEntryCopy transEntry = initJobEntryTrans(jobMeta, "转换");
+        jobMeta.addJobHop(new JobHopMeta(startEntry, transEntry));
+        return jobMeta;
+    }
 
+    /**
+     * 初始化一个作业开始入口
+     * @param jobMeta
+     * @param name
+     * @return
+     */
+    private JobEntryCopy initJobEntrySpecial(JobMeta jobMeta, String name){
         JobEntrySpecial start = new JobEntrySpecial();
-        start.setName("START");
+        start.setName(name);
         start.setStart(true);
         start.setSchedulerType(JobEntrySpecial.INTERVAL);
         start.setIntervalMinutes(0);
         start.setIntervalSeconds(3);
-        JobEntryCopy startEntry = new JobEntryCopy(start);
-        startEntry.setDrawn(true);
-        startEntry.setLocation(100, 100);
+        JobEntryCopy startEntry = KettleUtils.initJobEntryCopy(start, 100, 100);
         jobMeta.addJobEntry(startEntry);
+        return startEntry;
+    }
 
+    /**
+     * 初始化一个转换开始入口
+     * @param jobMeta
+     * @param name
+     * @return
+     */
+    private JobEntryCopy initJobEntryTrans(JobMeta jobMeta, String name) {
         JobEntryTrans trans = new JobEntryTrans();
-        trans.setName("转换");
-        trans.setFileName("${Internal.Entry.Current.Directory}/trans20201116104835.ktr");
-        JobEntryCopy transEntry = new JobEntryCopy(trans);
-        transEntry.setDrawn(true);
-        transEntry.setLocation(200, 100);
+        trans.setName(name);
+        trans.setFileName(KettleUtils.KETTLE_ENTRY_CURRENT_DIR + "/trans20201116104835.ktr");
+        JobEntryCopy transEntry = KettleUtils.initJobEntryCopy(trans, 200, 100);
         jobMeta.addJobEntry(transEntry);
-
-        jobMeta.addJobHop(new JobHopMeta(startEntry, transEntry));
-        return jobMeta;
+        return transEntry;
     }
 
     /**

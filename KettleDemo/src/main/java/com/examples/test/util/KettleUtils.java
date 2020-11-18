@@ -6,6 +6,8 @@ import org.pentaho.di.core.encryption.Encr;
 import org.pentaho.di.core.exception.KettleXMLException;
 import org.pentaho.di.core.plugins.PluginRegistry;
 import org.pentaho.di.core.plugins.PluginTypeInterface;
+import org.pentaho.di.job.entry.JobEntryCopy;
+import org.pentaho.di.job.entry.JobEntryInterface;
 import org.pentaho.di.trans.TransMeta;
 import org.pentaho.di.trans.step.StepMeta;
 import org.pentaho.di.trans.step.StepMetaInterface;
@@ -21,6 +23,7 @@ import java.util.Set;
  */
 @Slf4j
 public class KettleUtils {
+    public static final String KETTLE_ENTRY_CURRENT_DIR = "${Internal.Entry.Current.Directory}";
 
     /**registry是给每个步骤生成一个标识Id用*/
     private static ThreadLocal<PluginRegistry> registryThreadLocal = new ThreadLocal<PluginRegistry>(){
@@ -106,8 +109,20 @@ public class KettleUtils {
         return insertUpdateMeta;
     }
 
+    /**
+     * 密码加密
+     * @param s
+     * @return
+     */
     public static String encryPassword(String s){
         return Encr.encryptPasswordIfNotUsingVariables(s);
+    }
+
+    public static JobEntryCopy initJobEntryCopy(JobEntryInterface entry, int x, int y){
+        JobEntryCopy jobEntryCopy = new JobEntryCopy(entry);
+        jobEntryCopy.setDrawn(true);
+        jobEntryCopy.setLocation(x, y);
+        return jobEntryCopy;
     }
 
 }
