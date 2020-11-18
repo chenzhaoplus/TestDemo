@@ -64,7 +64,7 @@ public class ThreadLocalStudy {
 
     /**
      * 测试静态变量放入threadlocal，多线程里面对象是否是同一个
-     * 结论：  静态对象在threadlocal里，多线程会有线程安全问题
+     * 结论：  静态对象在threadlocal里，threadlocalPojo会有线程安全问题，但是tlStatic没有线程安全问题，即tlStatic在每个线程是一个新的副本，但是tlStatic里面承载的value不一定
      */
     private void testStatic(){
         for(int i = 0; i<100; i++){
