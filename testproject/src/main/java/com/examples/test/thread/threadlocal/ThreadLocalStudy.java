@@ -1,5 +1,7 @@
 package com.examples.test.thread.threadlocal;
 
+import com.examples.test.entity.FaceDTO;
+import com.examples.test.entity.ThreadlocalPojo;
 import com.examples.test.util.GsonUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +26,24 @@ public class ThreadLocalStudy {
         }
     };
 
+    private static ThreadlocalPojo threadlocalPojo = new ThreadlocalPojo();
+    private static ThreadLocal<ThreadlocalPojo> tlStatic = new ThreadLocal<ThreadlocalPojo>() {
+        @Override
+        public ThreadlocalPojo initialValue() {
+            return threadlocalPojo;
+        }
+    };
+
     public static void main(String[] args) throws InterruptedException {
+        ThreadLocalStudy study = new ThreadLocalStudy();
+//        study.testThreadLocal();
+        study.testStatic();
+    }
+
+    /**
+     * 测试threadLocal里的对象，在多线程里是否相互影响
+     */
+    private void testThreadLocal(){
         for(int i = 0; i<100; i++){
             new Thread(new Runnable() {
                 @Override
@@ -38,5 +57,18 @@ public class ThreadLocalStudy {
         }
     }
 
+    /**
+     * 测试静态变量放入threadlocal，多线程里面对象是否是同一个
+     */
+    private void testStatic(){
+        for(int i = 0; i<100; i++){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("thread: " + Thread.currentThread().getName() + " result: " + tlStatic.get());
+                }
+            }).start();
+        }
+    }
 
 }
