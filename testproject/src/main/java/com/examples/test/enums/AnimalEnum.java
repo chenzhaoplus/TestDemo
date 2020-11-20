@@ -13,27 +13,36 @@ import lombok.Getter;
 public enum AnimalEnum implements EnumCommon {
 
     //熊猫
-    PANDA("1") {
+    PANDA(1) {
         @Override
         public String eat() {
             return "吃竹子";
         }
     },
     //猫
-    CAT("2") {
+    CAT(2) {
         @Override
         public String eat() {
             return "吃鱼";
         }
     },
     //猴子
-    MONKEY("3") {
+    MONKEY(3) {
         @Override
         public String eat() {
             return "吃香蕉";
         }
     };
 
-    private String value;
+    private int value;
+
+    public static AnimalEnum getName(int value){
+        for (AnimalEnum item : AnimalEnum.values()) {
+            if (item.value == value){
+                return item;
+            }
+        }
+        return null;
+    }
 
 }
