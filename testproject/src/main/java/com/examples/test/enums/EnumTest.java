@@ -13,7 +13,7 @@ public class EnumTest {
         System.out.println(catEat);
 
         int value = AnimalEnum.PANDA.getValue();
-        String pandaEat = AnimalEnum.getName(value).eat();
+        String pandaEat = AnimalEnum.getEnumByValue(value).eat();
         System.out.println(pandaEat);
     }
 

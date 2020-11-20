@@ -36,7 +36,7 @@ public enum AnimalEnum implements EnumCommon {
 
     private int value;
 
-    public static AnimalEnum getName(int value){
+    public static AnimalEnum getEnumByValue(int value){
         for (AnimalEnum item : AnimalEnum.values()) {
             if (item.value == value){
                 return item;
