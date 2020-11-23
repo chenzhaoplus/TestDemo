@@ -1,7 +1,5 @@
 package com.examples.test.util;
 
-import com.examples.test.xml.Category;
-import com.examples.test.xml.XmlTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
@@ -65,7 +63,7 @@ public class XmlUtils {
         try {
             JAXBContext jAXBContextW;
             try {
-                jAXBContextW = JAXBContext.newInstance(Category.class);
+                jAXBContextW = JAXBContext.newInstance(bean.getClass());
                 FileReader categoryFileRead = new FileReader(filePath);
                 Unmarshaller unmarshaller = jAXBContextW.createUnmarshaller();
                 T categoryW = (T) unmarshaller.unmarshal(categoryFileRead);

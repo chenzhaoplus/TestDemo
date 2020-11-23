@@ -7,7 +7,10 @@ package com.examples.test.enums;
  */
 public interface EnumCommon {
 
-    //吃
+    /**
+     * 吃
+     * @return
+     */
     String eat();
 
 }

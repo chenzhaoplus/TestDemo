@@ -1,4 +1,4 @@
-package com.examples.test.kettle.entity;
+package com.examples.test.kettle;
 
 import com.examples.test.util.DateUtils;
 import com.examples.test.util.KettleUtils;
