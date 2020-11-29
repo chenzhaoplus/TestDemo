@@ -34,7 +34,7 @@ public class JobDemo {
      * @param metaName
      * @return
      */
-    private JobMeta generateJob(String metaName, String transFileName){
+    public JobMeta generateJob(String metaName, String transFileName){
         JobMeta jobMeta = new JobMeta();
         jobMeta.setName(metaName);
         JobEntryCopy startEntry = initJobEntryStart(jobMeta, "START", 100, 100);

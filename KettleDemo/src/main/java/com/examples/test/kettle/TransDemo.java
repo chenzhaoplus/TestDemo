@@ -6,6 +6,7 @@ import com.examples.test.util.JaxbUtil;
 import com.examples.test.util.KettleUtils;
 import com.examples.test.util.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.exception.KettleXMLException;
@@ -16,9 +17,8 @@ import org.pentaho.di.trans.step.StepMeta;
 import org.pentaho.di.trans.steps.insertupdate.InsertUpdateMeta;
 import org.pentaho.di.trans.steps.tableinput.TableInputMeta;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author chenz
@@ -45,9 +45,11 @@ public class TransDemo {
      * @return
      * @throws KettleXMLException
      */
-    private TransMeta generateTrans(String metaName) {
+    public TransMeta generateTrans(String metaName) {
         log.info("************start to generate my own transformation***********");
-        Set<String> databasesXML = initDbConnection();
+        List<Connection> connList = new ArrayList<>();
+        connList.add(initDbConnection2());
+        Set<String> databasesXML = getDbXml(connList);
         TransMeta transMeta = KettleUtils.initTransMeta(metaName, databasesXML);
         DatabaseMeta dbMeta = transMeta.findDatabase("dev-mysql-172.16.4.83");
         StepMeta tableInputStep = initTableInputStep(transMeta, dbMeta);
@@ -58,8 +60,7 @@ public class TransDemo {
         return transMeta;
     }
 
-    private Set<String> initDbConnection(){
-        Set<String> databasesXML = new HashSet<>();
+    private Connection initDbConnection(){
         Connection connection = new Connection();
         connection.setCommit("0");
         connection.setName("dev-mysql-172.16.4.83");
@@ -71,12 +72,38 @@ public class TransDemo {
         connection.setUsername("ibmp_test");
         String encryPassword = KettleUtils.encryPassword("XZdfjXIEsrumGrfFTmfltbtAuQCECUdl");
         connection.setPassword(encryPassword);
-        try {
-            String xml = JaxbUtil.convertToXml(connection);
-            databasesXML.add(xml);
-        } catch (Exception e) {
-            log.error("[数据源链接初始失败], e = {}", e.getMessage());
+        return connection;
+    }
+
+    private Connection initDbConnection2(){
+        Connection connection = new Connection();
+        connection.setCommit("0");
+        connection.setName("dev-mysql-v81");
+        connection.setServer("v81");
+        connection.setType("MYSQL");
+        connection.setAccess("Native");
+        connection.setDatabase("ibmp");
+        connection.setPort("3306");
+        connection.setUsername("root");
+        String encryPassword = KettleUtils.encryPassword("123");
+        connection.setPassword(encryPassword);
+        return connection;
+    }
+
+    private Set<String> getDbXml(List<Connection> connList){
+        if(CollectionUtils.isEmpty(connList)){
+            return Collections.emptySet();
         }
+        Set<String> databasesXML = new HashSet<>();
+        connList.forEach(conn->{
+            String xml = null;
+            try {
+                xml = JaxbUtil.convertToXml(conn);
+            } catch (Exception e) {
+                log.error("[数据源链接初始失败], e = {}", e.getMessage());
+            }
+            databasesXML.add(xml);
+        });
         return databasesXML;
     }
 
