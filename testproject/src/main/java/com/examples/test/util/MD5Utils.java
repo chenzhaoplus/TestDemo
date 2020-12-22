@@ -11,6 +11,11 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Utils {
 
+    public static void main(String[] args) {
+        String md5 = stringToMD5("420111198706234565");
+        System.out.println(md5);
+    }
+
     public static String stringToMD5(String plainText) {
         byte[] secretBytes = null;
         try {

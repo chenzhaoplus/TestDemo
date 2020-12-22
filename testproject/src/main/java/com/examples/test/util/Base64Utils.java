@@ -20,6 +20,10 @@ import java.util.regex.Pattern;
  */
 public class Base64Utils {
 
+    public static void main(String[] args) {
+
+    }
+
     /**
      * 正则判断是否为base64编码1
      *
