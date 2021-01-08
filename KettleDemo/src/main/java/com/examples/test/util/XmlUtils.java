@@ -19,10 +19,11 @@ public class XmlUtils {
 
     /**
      * xml字符串转文件
+     *
      * @param filePath
      * @param xmlStr
      */
-    public static void xmlStrToFile(String filePath, String xmlStr){
+    public static void xmlStrToFile(String filePath, String xmlStr) {
         try {
             File file = new File(filePath);
             FileUtils.writeStringToFile(file, xmlStr, "UTF-8");
@@ -33,6 +34,7 @@ public class XmlUtils {
 
     /**
      * 实体类转化成xml文件
+     *
      * @param bean
      * @param filePath
      * @param <T>
@@ -54,6 +56,7 @@ public class XmlUtils {
 
     /**
      * xml文件转换成实体类
+     *
      * @param bean
      * @param filePath
      * @param <T>

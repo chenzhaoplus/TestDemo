@@ -27,7 +27,7 @@ public class CompletableFutureTest {
                 return Collections.emptyList();
             });
             futureList.add(future);
-            System.out.println("ThreadName = "+Thread.currentThread() + " run at " + new Date());
+            System.out.println("ThreadName = " + Thread.currentThread() + " run at " + new Date());
         }
 
         //方法一：等待所有线程完成之后，聚合数据
@@ -40,13 +40,13 @@ public class CompletableFutureTest {
 //            }
 //        }
 
-        System.out.println("result = "+ JSON.toJSONString(result));
-        while(true){
+        System.out.println("result = " + JSON.toJSONString(result));
+        while (true) {
             // 防止主程序跑完了，run()方法里的线程还没有打印完
         }
     }
 
-    private static List<String> run(){
+    private static List<String> run() {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

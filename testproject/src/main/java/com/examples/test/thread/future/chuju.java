@@ -10,11 +10,11 @@ import java.util.concurrent.Callable;
 public class chuju implements Callable<Boolean> {
     @Override
     public Boolean call() throws Exception {
-        try{
+        try {
             System.out.println("买厨具");
             Thread.sleep(3000);
             System.out.println("买好厨具");
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return true;

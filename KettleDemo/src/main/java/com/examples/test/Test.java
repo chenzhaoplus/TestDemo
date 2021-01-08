@@ -3,7 +3,7 @@ package com.examples.test;
 public class Test {
     private static String sss = "111";
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 //        String deviceId = "DS-2XD8A47F/CF-LZS20200717AACHE59107220";
 //        deviceId = deviceId.substring(deviceId.length()-8, deviceId.length());
 //        System.out.println(deviceId);

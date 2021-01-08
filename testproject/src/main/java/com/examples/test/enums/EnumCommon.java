@@ -9,6 +9,7 @@ public interface EnumCommon {
 
     /**
      * 吃
+     *
      * @return
      */
     String eat();

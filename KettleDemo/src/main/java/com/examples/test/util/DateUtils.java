@@ -15,6 +15,7 @@ import java.util.GregorianCalendar;
 
 /**
  * 时间工具类
+ *
  * @author cz
  * @date 2017-1-31
  */
@@ -113,6 +114,7 @@ public class DateUtils {
 
     /**
      * 《线程安全的》格式化日期为字符串
+     *
      * @param localDateTime
      * @param format
      * @return String
@@ -528,12 +530,12 @@ public class DateUtils {
         return addHour(time, 8);
     }
 
-    public static long addHour(long time,int increHour) {
+    public static long addHour(long time, int increHour) {
         long result = time + increHour * 60 * 60 * 1000L;
         return result;
     }
 
-    public static long addMinute(long time,int increMinute) {
+    public static long addMinute(long time, int increMinute) {
         long result = time + increMinute * 60 * 1000L;
         return result;
     }

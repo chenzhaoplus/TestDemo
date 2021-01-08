@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 /**
  * 人脸基本信息
+ *
  * @author chenz
  */
 @Data

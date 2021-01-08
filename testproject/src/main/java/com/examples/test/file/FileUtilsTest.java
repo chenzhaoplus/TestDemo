@@ -32,7 +32,7 @@ public class FileUtilsTest {
 
         try {
             File file = new File("D:\\hikvision1\\pic\\");
-            if(!file.exists()){
+            if (!file.exists()) {
                 file.mkdirs();
             }
             FileOutputStream fout = new FileOutputStream("D:\\hikvision1\\pic\\" + new String("124.jpg"));

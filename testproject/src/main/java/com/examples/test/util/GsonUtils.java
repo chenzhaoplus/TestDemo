@@ -31,7 +31,8 @@ public class GsonUtils {
         System.out.println(s);
         System.out.println(jsonObject1.toJSONString());
 
-        Map<String, Object> map = JSON.parseObject(jsonObject.toString(), new TypeReference<Map<String,Object>>(){});
+        Map<String, Object> map = JSON.parseObject(jsonObject.toString(), new TypeReference<Map<String, Object>>() {
+        });
         System.out.println(map);
 
         List<FaceDTO> list = new ArrayList<>();
@@ -41,7 +42,8 @@ public class GsonUtils {
         list.add(faceDTO);
 
         String faceJson = JSON.toJSONString(faceDTO);
-        FaceDTO faceDTO1 = JSON.parseObject(faceJson, new TypeReference<FaceDTO>() {});
+        FaceDTO faceDTO1 = JSON.parseObject(faceJson, new TypeReference<FaceDTO>() {
+        });
         System.out.println(faceDTO1);
 
 //        for(int i = 0; i<3; i++){
@@ -73,8 +75,8 @@ public class GsonUtils {
         return json;
     }
 
-    public static <T> T  fromJson(String json, Class<T> clazz){
-        if(StringUtils.isEmpty(json)){
+    public static <T> T fromJson(String json, Class<T> clazz) {
+        if (StringUtils.isEmpty(json)) {
             return null;
         }
         T t = threadLocal.get().fromJson(json, clazz);
@@ -82,14 +84,13 @@ public class GsonUtils {
     }
 
     /**
-     *
      * @param json
      * @param typeOfT 格式： new TypeToken<List<MdBaseDrug>>(){}.getType()
      * @param <T>
      * @return T
      */
-    public static <T> T fromJson(String json, Type typeOfT){
-        if(StringUtils.isEmpty(json)){
+    public static <T> T fromJson(String json, Type typeOfT) {
+        if (StringUtils.isEmpty(json)) {
             return null;
         }
         T t = threadLocal.get().fromJson(json, typeOfT);
@@ -98,16 +99,17 @@ public class GsonUtils {
 
     public static <T> List<T> fromJson2List(String json, Class clazz) {
         Type type = new ParameterizedTypeImpl(clazz);
-        List<T> list =  threadLocal.get().fromJson(json, type);
+        List<T> list = threadLocal.get().fromJson(json, type);
         return list;
     }
 
     /**
      * json串转成map
+     *
      * @param str
      * @return Map
      */
-    public static Map toMap(String str){
+    public static Map toMap(String str) {
         Map map = new HashMap();
         map = threadLocal.get().fromJson(str, map.getClass());
         return map;

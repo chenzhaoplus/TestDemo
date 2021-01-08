@@ -30,7 +30,7 @@ public class JaxbUtil {
     /**
      * pojo转换成xml
      *
-     * @param obj 待转化的对象
+     * @param obj      待转化的对象
      * @param encoding 编码
      * @return xml格式字符串
      * @throws Exception JAXBException
@@ -55,7 +55,7 @@ public class JaxbUtil {
      * xml转换成JavaBean
      *
      * @param xml xml格式字符串
-     * @param t 待转化的对象
+     * @param t   待转化的对象
      * @return 转化后的对象
      * @throws Exception JAXBException
      */

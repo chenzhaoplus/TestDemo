@@ -34,7 +34,7 @@ public class TransDemo {
         TransDemo transDemo = new TransDemo();
         TransMeta transMeta = transDemo.generateTrans(metaName);
         try {
-            XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName +".ktr", transMeta.getXML());
+            XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName + ".ktr", transMeta.getXML());
         } catch (KettleException e) {
             log.error("[kettle转换脚本获取xml失败], e = {}", e.getMessage());
         }
@@ -42,6 +42,7 @@ public class TransDemo {
 
     /**
      * 生成一个转化,把一个数据库中的数据转移到另一个数据库中,只有两个步骤,第一个是表输入,第二个是表插入与更新操作
+     *
      * @return
      * @throws KettleXMLException
      */
@@ -60,7 +61,7 @@ public class TransDemo {
         return transMeta;
     }
 
-    private Connection initDbConnection(){
+    private Connection initDbConnection() {
         Connection connection = new Connection();
         connection.setCommit("0");
         connection.setName("dev-mysql-172.16.4.83");
@@ -75,7 +76,7 @@ public class TransDemo {
         return connection;
     }
 
-    private Connection initDbConnection2(){
+    private Connection initDbConnection2() {
         Connection connection = new Connection();
         connection.setCommit("0");
         connection.setName("dev-mysql-v81");
@@ -90,12 +91,12 @@ public class TransDemo {
         return connection;
     }
 
-    private Set<String> getDbXml(List<Connection> connList){
-        if(CollectionUtils.isEmpty(connList)){
+    private Set<String> getDbXml(List<Connection> connList) {
+        if (CollectionUtils.isEmpty(connList)) {
             return Collections.emptySet();
         }
         Set<String> databasesXML = new HashSet<>();
-        connList.forEach(conn->{
+        connList.forEach(conn -> {
             String xml = null;
             try {
                 xml = JaxbUtil.convertToXml(conn);
@@ -109,9 +110,10 @@ public class TransDemo {
 
     /**
      * 第一个表输入步骤(TableInputMeta)
+     *
      * @param transMeta
      */
-    private StepMeta initTableInputStep(TransMeta transMeta, DatabaseMeta dbMeta){
+    private StepMeta initTableInputStep(TransMeta transMeta, DatabaseMeta dbMeta) {
         TableInputMeta tableInput = KettleUtils.initTableInputMeta(dbMeta, "SELECT * FROM control_task_copy1");
         String tableInputPluginId = KettleUtils.getPluginId(StepPluginType.class, tableInput);
         StepMeta tableInputStep = KettleUtils.initStepMeta(tableInputPluginId, "table_input", tableInput, 100, 100);
@@ -121,6 +123,7 @@ public class TransDemo {
 
     /**
      * 第二个步骤插入与更新
+     *
      * @param transMeta
      * @param dbMeta
      * @return

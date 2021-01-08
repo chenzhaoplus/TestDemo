@@ -7,8 +7,7 @@ import com.sun.jna.Platform;
 /**
  * @Author: cz
  * @Date: 2020/7/3
- * @Description:
- *  jna原理：  https://www.jianshu.com/p/ead89497c403
+ * @Description: jna原理：  https://www.jianshu.com/p/ead89497c403
  */
 public class JnaHelloWorld {
 

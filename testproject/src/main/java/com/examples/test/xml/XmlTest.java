@@ -35,7 +35,7 @@ public class XmlTest {
     }
 
     private void pojoToXml() {
-        Category category  = initCategory();
+        Category category = initCategory();
         //实体类转化成xml
         try {
             JAXBContext jAXBContext = JAXBContext.newInstance(Category.class);
@@ -60,7 +60,7 @@ public class XmlTest {
                 FileReader categoryFileRead = new FileReader("D:\\category.xml");
                 Unmarshaller unmarshaller = jAXBContextW.createUnmarshaller();
                 Category categoryW = (Category) unmarshaller.unmarshal(categoryFileRead);
-                System.out.println("种类的名称为："+categoryW.getCategoryName());
+                System.out.println("种类的名称为：" + categoryW.getCategoryName());
             } catch (JAXBException e) {
                 e.printStackTrace();
             }
@@ -69,7 +69,7 @@ public class XmlTest {
         }
     }
 
-    public static Category initCategory(){
+    public static Category initCategory() {
         Category category = new Category();
         category.setCategoryID("c1");
         category.setCategoryName("电子产品");

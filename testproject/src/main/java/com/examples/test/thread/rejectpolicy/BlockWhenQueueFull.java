@@ -12,18 +12,18 @@ public class BlockWhenQueueFull implements RejectedExecutionHandler {
 
     private ThreadLocal<Integer> threadLocalSleepTimeout = new ThreadLocal<>();
 
-    public BlockWhenQueueFull(){
+    public BlockWhenQueueFull() {
         threadLocalSleepTimeout.set(500);
     }
 
-    public BlockWhenQueueFull(Integer sleepTimeout){
+    public BlockWhenQueueFull(Integer sleepTimeout) {
         threadLocalSleepTimeout.set(sleepTimeout);
     }
 
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
         try {
-            while(executor.getPoolSize()>=executor.getMaximumPoolSize()){
+            while (executor.getPoolSize() >= executor.getMaximumPoolSize()) {
 //                System.out.println("拒绝线程 "+r.toString()+" ，等待队列数量： "+queueSize);
                 Thread.sleep(threadLocalSleepTimeout.get());
 //                Thread.sleep(3000);

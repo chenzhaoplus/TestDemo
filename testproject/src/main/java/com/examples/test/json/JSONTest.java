@@ -29,7 +29,7 @@ public class JSONTest {
         }
     }
 
-    public static <T extends FaceDTO> List<T> test(String s, Class clazz){
+    public static <T extends FaceDTO> List<T> test(String s, Class clazz) {
         List<T> list = GsonUtils.fromJson2List(s, clazz);
 //        List<T> list = JSON.parseObject(s, new TypeReference<List<T>>(){});
         return list;

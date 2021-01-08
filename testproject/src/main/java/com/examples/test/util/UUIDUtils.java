@@ -9,12 +9,12 @@ import java.util.UUID;
  */
 public class UUIDUtils {
 
-    public static String getUUID(){
+    public static String getUUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
     public static void main(String[] args) {
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             String uuid = getUUID();
             System.out.println(uuid);
         }

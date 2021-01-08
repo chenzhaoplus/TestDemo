@@ -27,8 +27,10 @@ import java.util.Set;
 public class KettleUtils {
     public static final String KETTLE_ENTRY_CURRENT_DIR = "${Internal.Entry.Current.Directory}";
 
-    /**registry是给每个步骤生成一个标识Id用*/
-    private static ThreadLocal<PluginRegistry> registryThreadLocal = new ThreadLocal<PluginRegistry>(){
+    /**
+     * registry是给每个步骤生成一个标识Id用
+     */
+    private static ThreadLocal<PluginRegistry> registryThreadLocal = new ThreadLocal<PluginRegistry>() {
         @Override
         protected PluginRegistry initialValue() {
             return PluginRegistry.getInstance();
@@ -38,7 +40,7 @@ public class KettleUtils {
     /**
      * 初始化kettle环境
      */
-    public static void initEnviroment(){
+    public static void initEnviroment() {
         log.info("[kettle环境初始化开始]");
         try {
             KettleEnvironment.init();
@@ -49,16 +51,18 @@ public class KettleUtils {
 
     /**
      * 获取插件id
+     *
      * @param pluginType
      * @param pluginClass
      * @return
      */
-    public static String getPluginId(Class<? extends PluginTypeInterface> pluginType, Object pluginClass){
+    public static String getPluginId(Class<? extends PluginTypeInterface> pluginType, Object pluginClass) {
         return registryThreadLocal.get().getPluginId(pluginType, pluginClass);
     }
 
     /**
      * 初始化转换元数据
+     *
      * @param transMetaName
      * @param databasesXML
      * @return
@@ -70,7 +74,7 @@ public class KettleUtils {
         transMeta.setName(transMetaName);
         //添加转换的数据库连接
         try {
-            for(String p:databasesXML){
+            for (String p : databasesXML) {
                 DatabaseMeta databaseMeta = new DatabaseMeta(p);
                 transMeta.addDatabase(databaseMeta);
             }
@@ -82,11 +86,12 @@ public class KettleUtils {
 
     /**
      * 初始化表输入元数据
+     *
      * @param dbMeta
      * @param sql
      * @return
      */
-    public static TableInputMeta initTableInputMeta(DatabaseMeta dbMeta, String sql){
+    public static TableInputMeta initTableInputMeta(DatabaseMeta dbMeta, String sql) {
         TableInputMeta tableInput = new TableInputMeta();
         tableInput.setDatabaseMeta(dbMeta);
         tableInput.setSQL(sql);
@@ -95,6 +100,7 @@ public class KettleUtils {
 
     /**
      * 初始化步骤元数据
+     *
      * @param pluginId
      * @param stepname
      * @param stepMetaInterface
@@ -102,8 +108,8 @@ public class KettleUtils {
      * @param locationY
      * @return
      */
-    public static StepMeta initStepMeta(String pluginId, String stepname, StepMetaInterface stepMetaInterface,int locationX,int locationY){
-        StepMeta stepMeta = new StepMeta(pluginId,stepname,stepMetaInterface);
+    public static StepMeta initStepMeta(String pluginId, String stepname, StepMetaInterface stepMetaInterface, int locationX, int locationY) {
+        StepMeta stepMeta = new StepMeta(pluginId, stepname, stepMetaInterface);
         //给步骤添加在spoon工具中的显示位置
         stepMeta.setDraw(true);
         stepMeta.setLocation(locationX, locationY);
@@ -112,11 +118,12 @@ public class KettleUtils {
 
     /**
      * 初始化插入/更新元数据
+     *
      * @param dbMeta
      * @param tableName
      * @return
      */
-    public static InsertUpdateMeta initInsertUpdateMeta(DatabaseMeta dbMeta, String tableName){
+    public static InsertUpdateMeta initInsertUpdateMeta(DatabaseMeta dbMeta, String tableName) {
         InsertUpdateMeta insertUpdateMeta = new InsertUpdateMeta();
         insertUpdateMeta.setDatabaseMeta(dbMeta);
         insertUpdateMeta.setTableName(tableName);
@@ -125,14 +132,15 @@ public class KettleUtils {
 
     /**
      * 密码加密
+     *
      * @param s
      * @return
      */
-    public static String encryPassword(String s){
+    public static String encryPassword(String s) {
         return Encr.encryptPasswordIfNotUsingVariables(s);
     }
 
-    public static JobEntryCopy initJobEntryCopy(JobEntryInterface entry, int x, int y){
+    public static JobEntryCopy initJobEntryCopy(JobEntryInterface entry, int x, int y) {
         JobEntryCopy jobEntryCopy = new JobEntryCopy(entry);
         jobEntryCopy.setDrawn(true);
         jobEntryCopy.setLocation(x, y);

@@ -25,7 +25,7 @@ public class SynchronizedDemo implements Runnable {
     public void run() {
 //        synchronized (count) {
         synchronized (SynchronizedDemo.class) {
-            for (int i = 0; i < 1000000; i++){
+            for (int i = 0; i < 1000000; i++) {
                 count++;
             }
         }

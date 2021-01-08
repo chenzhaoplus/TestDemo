@@ -16,20 +16,21 @@ public class CompletableFutureUtils {
 
     /**
      * futureList所有的任务完成以后，返回聚合后的值
+     *
      * @param futureList
      * @param <T>
      * @return
      */
-    public static <T> List<T> allOfFutures(List<CompletableFuture<List<T>>> futureList){
-        if(futureList==null || futureList.isEmpty()){
+    public static <T> List<T> allOfFutures(List<CompletableFuture<List<T>>> futureList) {
+        if (futureList == null || futureList.isEmpty()) {
             return Collections.emptyList();
         }
         CompletableFuture<Void> voidCompletableFuture = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[futureList.size()]));
         CompletableFuture<List<T>> allFutures = voidCompletableFuture.thenApplyAsync(v -> {
             List<T> tempList = new ArrayList<>();
-            for(CompletableFuture<List<T>> future:futureList){
+            for (CompletableFuture<List<T>> future : futureList) {
                 List<T> join = future.join();
-                if(join==null || join.isEmpty()){
+                if (join == null || join.isEmpty()) {
                     continue;
                 }
                 tempList.addAll(join);

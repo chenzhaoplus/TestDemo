@@ -33,7 +33,7 @@ public class FaceEngineTest {
             System.out.println("引擎激活失败");
         }
 
-        ActiveFileInfo activeFileInfo=new ActiveFileInfo();
+        ActiveFileInfo activeFileInfo = new ActiveFileInfo();
         errorCode = faceEngine.getActiveFileInfo(activeFileInfo);
         if (errorCode != ErrorInfo.MOK.getValue() && errorCode != ErrorInfo.MERR_ASF_ALREADY_ACTIVATED.getValue()) {
             System.out.println("获取激活文件信息失败");
@@ -79,7 +79,7 @@ public class FaceEngineTest {
         //人脸检测2
         ImageInfo imageInfo2 = getRGBData(new File("d:\\ccc.jpg"));
         List<FaceInfo> faceInfoList2 = new ArrayList<FaceInfo>();
-        errorCode = faceEngine.detectFaces(imageInfo2.getImageData(), imageInfo2.getWidth(), imageInfo2.getHeight(),imageInfo.getImageFormat(), faceInfoList2);
+        errorCode = faceEngine.detectFaces(imageInfo2.getImageData(), imageInfo2.getWidth(), imageInfo2.getHeight(), imageInfo.getImageFormat(), faceInfoList2);
         System.out.println(faceInfoList);
 
         //特征提取2

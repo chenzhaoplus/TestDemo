@@ -20,10 +20,6 @@ import java.util.regex.Pattern;
  */
 public class Base64Utils {
 
-    public static void main(String[] args) {
-
-    }
-
     /**
      * 正则判断是否为base64编码1
      *
@@ -37,16 +33,17 @@ public class Base64Utils {
 
     /**
      * 图片转字符串
+     *
      * @param image
      * @return
      */
-    public static String encode(byte[] image){
+    public static String encode(byte[] image) {
         BASE64Encoder decoder = new BASE64Encoder();
         return replaceEnter(decoder.encode(image));
     }
 
-    public static String encode(String uri){
-        if(StringUtils.isBlank(uri)){
+    public static String encode(String uri) {
+        if (StringUtils.isBlank(uri)) {
             return null;
         }
         BASE64Encoder encoder = new BASE64Encoder();
@@ -73,11 +70,12 @@ public class Base64Utils {
 
     /**
      * 字符串转图片
+     *
      * @param base64Str
      * @return
      */
-    public static byte[] decode(String base64Str){
-        if(StringUtils.isBlank(base64Str)){
+    public static byte[] decode(String base64Str) {
+        if (StringUtils.isBlank(base64Str)) {
             return null;
         }
         byte[] b = null;
@@ -91,11 +89,10 @@ public class Base64Utils {
     }
 
     /**
-     *
-     * @path    图片路径
      * @return
+     * @path 图片路径
      */
-    public static byte[] imageTobyte(String path){
+    public static byte[] imageTobyte(String path) {
         byte[] data = null;
         FileImageInputStream input = null;
         try {
@@ -103,7 +100,7 @@ public class Base64Utils {
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             byte[] buf = new byte[1024];
             int numBytesRead = 0;
-            while((numBytesRead = input.read(buf)) != -1){
+            while ((numBytesRead = input.read(buf)) != -1) {
                 output.write(buf, 0, numBytesRead);
             }
             data = output.toByteArray();
@@ -117,8 +114,8 @@ public class Base64Utils {
         return data;
     }
 
-    public static String replaceEnter(String str){
-        String reg ="[\n-\r]";
+    public static String replaceEnter(String str) {
+        String reg = "[\n-\r]";
         Pattern p = Pattern.compile(reg);
         Matcher m = p.matcher(str);
         return m.replaceAll("");

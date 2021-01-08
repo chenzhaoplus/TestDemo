@@ -38,7 +38,7 @@ public class ThreadLocalStudy {
         ThreadLocalStudy study = new ThreadLocalStudy();
 //        study.testThreadLocal();
         study.testStatic();
-        while (true){
+        while (true) {
             System.out.println(threadlocalPojo.getAge());
             Thread.sleep(3000);
         }
@@ -48,12 +48,12 @@ public class ThreadLocalStudy {
      * 测试threadLocal里的对象，在多线程里是否相互影响
      * 结论： 不影响
      */
-    private void testThreadLocal(){
-        for(int i = 0; i<100; i++){
+    private void testThreadLocal() {
+        for (int i = 0; i < 100; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    for(int j =0 ; j <100 ; j++){
+                    for (int j = 0; j < 100; j++) {
                         threadLocal.set(j);
                     }
                     System.out.println("thread: " + Thread.currentThread().getName() + " result: " + threadLocal.get());
@@ -66,8 +66,8 @@ public class ThreadLocalStudy {
      * 测试静态变量放入threadlocal，多线程里面对象是否是同一个
      * 结论：  静态对象在threadlocal里，threadlocalPojo会有线程安全问题，但是tlStatic没有线程安全问题，即tlStatic在每个线程是一个新的副本，但是tlStatic里面承载的value不一定
      */
-    private void testStatic(){
-        for(int i = 0; i<100; i++){
+    private void testStatic() {
+        for (int i = 0; i < 100; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {

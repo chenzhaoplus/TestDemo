@@ -17,7 +17,7 @@ public class XmlTest {
 
     public static void main(String[] args) {
         //pojo类和xml文件互转
-        Category category  = initCategory();
+        Category category = initCategory();
 
         XmlUtils.pojoToXmlFile(category, "D:\\category.xml");
         XmlUtils.xmlFileToPojo(category, "D:\\category.xml");
@@ -59,7 +59,7 @@ public class XmlTest {
         */
     }
 
-    public static Category initCategory(){
+    public static Category initCategory() {
         Category category = new Category();
         category.setCategoryID("c1");
         category.setCategoryName("电子产品");

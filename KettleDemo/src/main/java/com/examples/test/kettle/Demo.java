@@ -24,7 +24,7 @@ public class Demo {
         demo.getKjb(ktrFileName);
     }
 
-    private String getKtr(){
+    private String getKtr() {
         String metaName = "trans" + DateUtils.format(new Date(), DateUtils.DATE_FOMATE_YYYYMMDDHHMMSS);
         KettleUtils.initEnviroment();
         TransDemo transDemo = new TransDemo();
@@ -39,12 +39,12 @@ public class Demo {
         }
     }
 
-    private void getKjb(String ktrFileName){
+    private void getKjb(String ktrFileName) {
         String metaName = "job" + DateUtils.format(new Date(), DateUtils.DATE_FOMATE_YYYYMMDDHHMMSS);
         KettleUtils.initEnviroment();
         JobDemo jobDemo = new JobDemo();
         JobMeta jobMeta = jobDemo.generateJob(metaName, KettleUtils.KETTLE_ENTRY_CURRENT_DIR + "/" + ktrFileName);
-        XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName +".kjb", jobMeta.getXML());
+        XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName + ".kjb", jobMeta.getXML());
     }
 
 }

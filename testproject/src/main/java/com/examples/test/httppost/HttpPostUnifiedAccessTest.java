@@ -18,11 +18,11 @@ public class HttpPostUnifiedAccessTest {
     public static String port = "3333";
 
     //门禁流水上传url
-    public static final String upsideEntranceUrl = "http://"+ip+":"+port+"/iot/smcaiot/upsideEntranceRecord";
+    public static final String upsideEntranceUrl = "http://" + ip + ":" + port + "/iot/smcaiot/upsideEntranceRecord";
     //人脸流水上传url
-    public static final String upsideFaceRecordUrl = "http://"+ip+":"+port+"/iot/smcaiot/upsideFaceRecord";
+    public static final String upsideFaceRecordUrl = "http://" + ip + ":" + port + "/iot/smcaiot/upsideFaceRecord";
     //uat环境fastdfs文件上传
-    public static final String uploadFastdfsUrl = "http://"+ip+":"+port+"/smcaiot-filemanagement/filestorage/storageFileFdfs";
+    public static final String uploadFastdfsUrl = "http://" + ip + ":" + port + "/smcaiot-filemanagement/filestorage/storageFileFdfs";
 
     public static void main(String[] args) {
         // 门禁流水
@@ -31,15 +31,15 @@ public class HttpPostUnifiedAccessTest {
 //        upsideFaceRecord();
     }
 
-    public static void upsideEntrance(){
+    public static void upsideEntrance() {
         //请求上传门禁流水
         String path = JSONUtils.getPathFromFile("httppost/Unified/Entrance.json");
         String s = JSONUtils.readJsonFile(path);
         JSONArray jobj = JSON.parseArray(s);
         int size = jobj.size();
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             JSONObject o = (JSONObject) jobj.get(i);
-            String data= HttpUtils.getJsonData(o, upsideEntranceUrl);
+            String data = HttpUtils.getJsonData(o, upsideEntranceUrl);
             System.out.println(data);
         }
 
@@ -57,14 +57,14 @@ public class HttpPostUnifiedAccessTest {
 //        update analysis_entrance_record set store_path='group1/M00/01/6B/rBAEbV8NEGKADWS1AAB8nfd1D4Y273.jpg' WHERE community_id='f73dc1151df34239853941721a155c0b' and id ='3074193689';
     }
 
-    public static void upsideFaceRecord(){
+    public static void upsideFaceRecord() {
         String path = JSONUtils.getPathFromFile("httppost/Unified/FaceRecord.json");
         String s = JSONUtils.readJsonFile(path);
         JSONArray jobj = JSON.parseArray(s);
         int size = jobj.size();
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             JSONObject o = (JSONObject) jobj.get(i);
-            String data= HttpUtils.getJsonData(o, upsideFaceRecordUrl);
+            String data = HttpUtils.getJsonData(o, upsideFaceRecordUrl);
             System.out.println(data);
         }
     }

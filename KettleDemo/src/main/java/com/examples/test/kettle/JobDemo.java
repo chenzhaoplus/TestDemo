@@ -26,15 +26,16 @@ public class JobDemo {
         KettleUtils.initEnviroment();
         JobDemo jobDemo = new JobDemo();
         JobMeta jobMeta = jobDemo.generateJob(metaName, KettleUtils.KETTLE_ENTRY_CURRENT_DIR + "/trans20201116104835.ktr");
-        XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName +".kjb", jobMeta.getXML());
+        XmlUtils.xmlStrToFile("D:\\linux\\kettle\\kettle8.2\\file\\" + metaName + ".kjb", jobMeta.getXML());
     }
 
     /**
      * 生成一个作业
+     *
      * @param metaName
      * @return
      */
-    public JobMeta generateJob(String metaName, String transFileName){
+    public JobMeta generateJob(String metaName, String transFileName) {
         JobMeta jobMeta = new JobMeta();
         jobMeta.setName(metaName);
         JobEntryCopy startEntry = initJobEntryStart(jobMeta, "START", 100, 100);
@@ -45,11 +46,12 @@ public class JobDemo {
 
     /**
      * 初始化一个作业开始入口
+     *
      * @param jobMeta
      * @param name
      * @return
      */
-    private JobEntryCopy initJobEntryStart(JobMeta jobMeta, String name, int x, int y){
+    private JobEntryCopy initJobEntryStart(JobMeta jobMeta, String name, int x, int y) {
         JobEntrySpecial start = new JobEntrySpecial();
         start.setName(name);
         start.setStart(true);
@@ -63,6 +65,7 @@ public class JobDemo {
 
     /**
      * 初始化一个转换开始入口
+     *
      * @param jobMeta
      * @param name
      * @return
@@ -78,9 +81,9 @@ public class JobDemo {
 
     /**
      * This method generates a job definition from scratch.
-     *
+     * <p>
      * It demonstrates the following:
-     *
+     * <p>
      * - Creating a new job
      * - Creating and connecting job entries
      *
