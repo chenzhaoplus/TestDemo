@@ -93,7 +93,7 @@ public class SubmitJobApplicationMode{
 		System.out.println("--------------------------applicationId = "+applicationId+"--------------------------");
 		System.out.println("--------------------------getClusterClient end--------------------------");
 
-		System.out.println("--------------------------begin--------------------------");
+		System.out.println("--------------------------end--------------------------");
 	}
 
 }
