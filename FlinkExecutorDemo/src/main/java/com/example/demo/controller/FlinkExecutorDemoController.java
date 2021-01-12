@@ -59,13 +59,11 @@ public class FlinkExecutorDemoController {
 //                    "/ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName
 //            };
 
-            log.info("begin ------------ hdfs dfs -get " + jarHdfsUrl + " /ops/data/flinkexecutordemo/");
             List<String> hdfsGet = CommandUtil.runLinuxCmd("hdfs dfs -get " + jarHdfsUrl + " /ops/data/flinkexecutordemo/");
-            log.info("end ------------ hdfsGet = {}", hdfsGet);
+//            log.info("end ------------ hdfsGet = {}", hdfsGet);
 
-            log.info("begin ------------ /ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName);
             List<String> flinkRun = CommandUtil.runLinuxCmd("/ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName);
-            log.info("end ------------ flinkRun = {}", flinkRun);
+//            log.info("end ------------ flinkRun = {}", flinkRun);
 
             log.info("end");
             return RestResp.successRestResp("成功");
