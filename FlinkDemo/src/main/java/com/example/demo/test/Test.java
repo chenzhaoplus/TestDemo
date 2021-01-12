@@ -7,8 +7,13 @@ package com.example.demo.test;
  */
 public class Test {
 
+    private static String os = System.getProperty("os.name").toLowerCase();
+
     public static void main(String[] args) {
-        System.out.println(111);
+        String path = Test.class.getResource("/").getPath().replaceAll("%20", " ").substring(1).replace("/", "\\");
+        if (!os.contains("windows")) {
+            path = "/ops/app/flink-1.11.1/conf/";
+        }
     }
 
 }

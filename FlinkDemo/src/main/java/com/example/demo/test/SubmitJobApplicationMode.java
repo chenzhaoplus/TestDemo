@@ -25,14 +25,15 @@ import java.util.Collections;
 
 public class SubmitJobApplicationMode{
 
-	private static final String DOMAIN = "v81:9000";
-//	private static final String DOMAIN = "master:8020";
+//	private static final String DOMAIN = "v81:9000";
+	private static final String DOMAIN = "master:8020";
 
 	public static void main(String[] args){
 		System.out.println("--------------------------begin--------------------------");
 
 		//flink的本地配置目录，为了得到flink的配置
-		String configurationDirectory = "/ops/app/flink-1.11.1/conf/";
+//		String configurationDirectory = "/ops/app/flink-1.11.1/conf/";
+		String configurationDirectory = getFlinkConfPath();
 		//存放flink集群相关的jar包目录
 		String flinkLibs = "hdfs://"+DOMAIN+"/flink/libs/lib";
 		//用户jar
@@ -94,6 +95,15 @@ public class SubmitJobApplicationMode{
 		System.out.println("--------------------------getClusterClient end--------------------------");
 
 		System.out.println("--------------------------end--------------------------");
+	}
+
+	private static String getFlinkConfPath(){
+		String os = System.getProperty("os.name").toLowerCase();
+		String path = SubmitJobApplicationMode.class.getResource("/").getPath().replaceAll("%20", " ").substring(1).replace("/", "\\");
+		if (!os.contains("windows")) {
+			path = "/ops/app/flink-1.11.1/conf/";
+		}
+		return path;
 	}
 
 }
