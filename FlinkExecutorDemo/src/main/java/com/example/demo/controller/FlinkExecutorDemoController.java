@@ -51,14 +51,15 @@ public class FlinkExecutorDemoController {
 //            List<String> hdfsGet = CommandUtil.runLinuxCmd("hdfs dfs -get " + jarHdfsUrl + " /ops/data/flinkexecutordemo/");
 //            List<String> flinkRun = CommandUtil.runLinuxCmd("/ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName);
 //            CommandUtil.runLinuxCmd("echo 111;echo 222;mkdir /ops/data/flinkexecutordemo/111;");
-            StringBuffer sb = new StringBuffer();
-            sb.append("/ops/app/flink-1.11.1/bin/flink run-application -t yarn-application \\");
-            sb.append("-Djobmanager.memory.process.size=1024m \\");
-            sb.append("-Dtaskmanager.memory.process.size=2048m \\");
-            sb.append("-Dyarn.application.name=\"MyFlinkWordCount\" \\");
-            sb.append("-Dtaskmanager.numberOfTaskSlots=1 \\");
-            sb.append("-Dyarn.provided.lib.dirs=\"hdfs://"+HDFS_DOMAIN+"/flink/libs/lib;hdfs://"+HDFS_DOMAIN+"/flink/libs/plugins\" hdfs://"+HDFS_DOMAIN+jarHdfsUrl);
-            CommandUtil.runLinuxCmd(sb.toString());
+//            StringBuffer sb = new StringBuffer();
+//            sb.append("/ops/app/flink-1.11.1/bin/flink run-application -t yarn-application \\");
+//            sb.append("-Djobmanager.memory.process.size=1024m \\");
+//            sb.append("-Dtaskmanager.memory.process.size=2048m \\");
+//            sb.append("-Dyarn.application.name=\"MyFlinkWordCount\" \\");
+//            sb.append("-Dtaskmanager.numberOfTaskSlots=1 \\");
+//            sb.append("-Dyarn.provided.lib.dirs=\"hdfs://"+HDFS_DOMAIN+"/flink/libs/lib;hdfs://"+HDFS_DOMAIN+"/flink/libs/plugins\" hdfs://"+HDFS_DOMAIN+jarHdfsUrl);
+//            CommandUtil.runLinuxCmd(sb.toString());
+            CommandUtil.runLinuxCmd("/ops/data/flinkexecutordemo/flink-application.sh "+jarHdfsUrl);
 
             log.info("end");
             return RestResp.successRestResp("成功");
