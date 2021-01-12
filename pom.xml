@@ -19,6 +19,7 @@
         <module>KettleDemo</module>
         <module>testproject</module>
         <module>FlinkDemo</module>
+        <module>FlinkExecutorDemo</module>
     </modules>
     <properties>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>

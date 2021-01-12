@@ -26,7 +26,7 @@ import java.util.Collections;
 public class SubmitJobApplicationMode{
 
 //	private static final String DOMAIN = "v81:9000";
-	private static final String DOMAIN = "master:8020";
+	private static final String HDFS_DOMAIN = "master:8020";
 
 	public static void main(String[] args){
 		System.out.println("--------------------------begin--------------------------");
@@ -35,10 +35,10 @@ public class SubmitJobApplicationMode{
 //		String configurationDirectory = "/ops/app/flink-1.11.1/conf/";
 		String configurationDirectory = getFlinkConfPath();
 		//存放flink集群相关的jar包目录
-		String flinkLibs = "hdfs://"+DOMAIN+"/flink/libs/lib";
+		String flinkLibs = "hdfs://"+ HDFS_DOMAIN +"/flink/libs/lib";
 		//用户jar
-		String userJarPath = "hdfs://"+DOMAIN+"/flink/jars/WordCount.jar";
-		String flinkDistJar = "hdfs://"+DOMAIN+"/flink/libs/flink-yarn_2.11-1.11.1.jar";
+		String userJarPath = "hdfs://"+ HDFS_DOMAIN +"/flink/jars/WordCount.jar";
+		String flinkDistJar = "hdfs://"+ HDFS_DOMAIN +"/flink/libs/flink-yarn_2.11-1.11.1.jar";
 
 		System.out.println("--------------------------yarnClient begin--------------------------");
 		YarnClient yarnClient = YarnClient.createYarnClient();
