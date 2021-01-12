@@ -28,20 +28,14 @@ import java.util.List;
 @Slf4j
 public class FlinkExecutorDemoController {
 
-    private static final String HDFS_DOMAIN = "master:8020";
-
-    public static void main(String[] args) {
-        String jarHdfsUrl = "/flink/jars/WordCount.jar";
-        String substring = jarHdfsUrl.substring(jarHdfsUrl.lastIndexOf("/")+1, jarHdfsUrl.length());
-        System.out.println(substring);
-    }
+//    private static final String HDFS_DOMAIN = "master:8020";
+    private static final String HDFS_DOMAIN = "v81:9000";
 
     @PostMapping(value = "/execFlinkJob")
     @ApiOperation(value = "执行flink任务", notes = "")
     public RestResp execFlinkJob(@RequestBody FlinkJobParams params) {
         log.info("begin");
         try {
-//            ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
             String jarHdfsUrl = params.getJarHdfsUrl();
             log.debug("jarHdfsUrl = {}", jarHdfsUrl);
             if(StringUtils.isBlank(jarHdfsUrl)){
@@ -54,16 +48,17 @@ public class FlinkExecutorDemoController {
             String fileName = jarHdfsUrl.substring(i + 1, jarHdfsUrl.length());
             log.debug("fileName = {}", fileName);
 
-//            String[] command = new String[]{
-//                    "hdfs dfs -get "+jarHdfsUrl+" /ops/data/flinkexecutordemo/",
-//                    "/ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName
-//            };
-
-            List<String> hdfsGet = CommandUtil.runLinuxCmd("hdfs dfs -get " + jarHdfsUrl + " /ops/data/flinkexecutordemo/");
-//            log.info("end ------------ hdfsGet = {}", hdfsGet);
-
-            List<String> flinkRun = CommandUtil.runLinuxCmd("/ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName);
-//            log.info("end ------------ flinkRun = {}", flinkRun);
+//            List<String> hdfsGet = CommandUtil.runLinuxCmd("hdfs dfs -get " + jarHdfsUrl + " /ops/data/flinkexecutordemo/");
+//            List<String> flinkRun = CommandUtil.runLinuxCmd("/ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName);
+//            CommandUtil.runLinuxCmd("echo 111;echo 222;mkdir /ops/data/flinkexecutordemo/111;");
+            StringBuffer sb = new StringBuffer();
+            sb.append("/ops/app/flink-1.11.1/bin/flink run-application -t yarn-application \\");
+            sb.append("-Djobmanager.memory.process.size=1024m \\");
+            sb.append("-Dtaskmanager.memory.process.size=2048m \\");
+            sb.append("-Dyarn.application.name=\"MyFlinkWordCount\" \\");
+            sb.append("-Dtaskmanager.numberOfTaskSlots=1 \\");
+            sb.append("-Dyarn.provided.lib.dirs=\"hdfs://"+HDFS_DOMAIN+"/flink/libs/lib;hdfs://"+HDFS_DOMAIN+"/flink/libs/plugins\" hdfs://"+HDFS_DOMAIN+jarHdfsUrl);
+            CommandUtil.runLinuxCmd(sb.toString());
 
             log.info("end");
             return RestResp.successRestResp("成功");

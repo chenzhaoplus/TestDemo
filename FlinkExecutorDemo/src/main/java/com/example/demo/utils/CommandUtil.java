@@ -74,7 +74,11 @@ public class CommandUtil {
 		Runtime run = Runtime.getRuntime();
 		try {
 //            Process process = run.exec(cmd);
-			Process process = run.exec(new String[] {"/bin/sh", "-c", cmd});
+			List<String> cmdList = new ArrayList<>();
+			cmdList.add("/bin/sh");
+			cmdList.add("-c");
+			cmdList.add(cmd);
+			Process process = run.exec(cmdList.toArray(new String[]{}));
 			InputStream in = process.getInputStream();
 			BufferedReader bs = new BufferedReader(new InputStreamReader(in));
 			List<String> list = new ArrayList<String>();
