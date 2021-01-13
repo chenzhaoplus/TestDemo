@@ -14,6 +14,7 @@ public class Test {
         if (!os.contains("windows")) {
             path = "/ops/app/flink-1.11.1/conf/";
         }
+
     }
 
 }
