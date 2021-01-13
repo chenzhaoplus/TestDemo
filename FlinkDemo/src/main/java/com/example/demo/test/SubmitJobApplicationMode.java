@@ -1,5 +1,7 @@
 package com.example.demo.test;
 
+import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.api.java.utils.MultipleParameterTool;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.deployment.application.ApplicationConfiguration;
@@ -30,12 +32,11 @@ public class SubmitJobApplicationMode{
 //	private static final String HDFS_DOMAIN = "master:8020";
 
 	public static void main(String[] args){
-		System.out.println("--------------------------begin--------------------------");
-
 		//flink的本地配置目录，为了得到flink的配置
-//		String configurationDirectory = "/ops/app/flink-1.11.1/conf/";
+		String configurationDirectory = "/ops/app/flink-1.11.1/conf/";
+//		String configurationDirectory = "D:\\workspace\\myfile\\learn\\TestDemo\\FlinkDemo\\src\\main\\resources\\conf";
 //		String configurationDirectory = "hdfs://"+ HDFS_DOMAIN +"/flink/conf";
-		String configurationDirectory = getFlinkConfPath();
+//		String configurationDirectory = getFlinkConfPath();
 		//存放flink集群相关的jar包目录
 		String flinkLibs = "hdfs://"+ HDFS_DOMAIN +"/flink/libs/lib";
 		//用户jar
