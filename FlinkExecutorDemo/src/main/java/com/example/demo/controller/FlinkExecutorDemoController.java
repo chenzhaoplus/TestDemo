@@ -71,7 +71,7 @@ public class FlinkExecutorDemoController {
 //            sb.append("-Dtaskmanager.numberOfTaskSlots=1 \\");
 //            sb.append("-Dyarn.provided.lib.dirs=\"hdfs://"+HDFS_DOMAIN+"/flink/libs/lib;hdfs://"+HDFS_DOMAIN+"/flink/libs/plugins\" hdfs://"+HDFS_DOMAIN+jarHdfsUrl);
 //            CommandUtil.runLinuxCmd(sb.toString());
-            CommandUtil.runLinuxCmd("/ops/data/flinkexecutordemo/flink-application.sh "+jarHdfsUrl);
+            CommandUtil.runLinuxCmd("/ops/app/flinkexecutordemo/flink-application.sh "+jarHdfsUrl);
 
             log.info("end");
             return RestResp.successRestResp("成功");
