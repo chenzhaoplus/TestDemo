@@ -21,23 +21,26 @@ import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.client.api.YarnClient;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 
+import java.net.URL;
 import java.util.Collections;
 
 public class SubmitJobApplicationMode{
 
-//	private static final String DOMAIN = "v81:9000";
-	private static final String HDFS_DOMAIN = "master:8020";
+	private static final String HDFS_DOMAIN = "v81:9000";
+//	private static final String HDFS_DOMAIN = "master:8020";
 
 	public static void main(String[] args){
 		System.out.println("--------------------------begin--------------------------");
 
 		//flink的本地配置目录，为了得到flink的配置
 //		String configurationDirectory = "/ops/app/flink-1.11.1/conf/";
+//		String configurationDirectory = "hdfs://"+ HDFS_DOMAIN +"/flink/conf";
 		String configurationDirectory = getFlinkConfPath();
 		//存放flink集群相关的jar包目录
 		String flinkLibs = "hdfs://"+ HDFS_DOMAIN +"/flink/libs/lib";
 		//用户jar
-		String userJarPath = "hdfs://"+ HDFS_DOMAIN +"/flink/jars/WordCount.jar";
+//		String userJarPath = "hdfs://"+ HDFS_DOMAIN +"/flink/jars/WordCount.jar";
+		String userJarPath = "hdfs://"+ HDFS_DOMAIN +"/flink/jars/hello-jar-with-dependencies.jar";
 		String flinkDistJar = "hdfs://"+ HDFS_DOMAIN +"/flink/libs/flink-yarn_2.11-1.11.1.jar";
 
 		System.out.println("--------------------------yarnClient begin--------------------------");
@@ -99,7 +102,12 @@ public class SubmitJobApplicationMode{
 
 	private static String getFlinkConfPath(){
 		String os = System.getProperty("os.name").toLowerCase();
-		String path = SubmitJobApplicationMode.class.getResource("/").getPath().replaceAll("%20", " ").substring(1).replace("/", "\\");
+		URL resource = SubmitJobApplicationMode.class.getResource("/");
+		System.out.println("--------------------------resource = "+resource+"--------------------------");
+		String resourcePath = resource.getPath();
+		System.out.println("--------------------------resourcePath = "+resourcePath+"--------------------------");
+		String path = resourcePath.replaceAll("%20", " ").substring(1).replace("/", "\\");
+		System.out.println("--------------------------path = "+path+"--------------------------");
 		if (!os.contains("windows")) {
 			path = "/ops/app/flink-1.11.1/conf/";
 		}
