@@ -20,6 +20,7 @@
         <module>testproject</module>
         <module>FlinkDemo</module>
         <module>FlinkExecutorDemo</module>
+        <module>FlinkWordCount</module>
     </modules>
     <properties>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
