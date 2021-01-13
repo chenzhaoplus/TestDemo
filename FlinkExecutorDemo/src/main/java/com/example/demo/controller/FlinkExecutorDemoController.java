@@ -45,8 +45,8 @@ import java.util.List;
 @Slf4j
 public class FlinkExecutorDemoController {
 
-//    private static final String HDFS_DOMAIN = "master:8020";
-    private static final String HDFS_DOMAIN = "v81:9000";
+    private static final String HDFS_DOMAIN = "master:8020";
+//    private static final String HDFS_DOMAIN = "v81:9000";
 
     @PostMapping(value = "/execFlinkJob")
     @ApiOperation(value = "执行flink任务", notes = "")

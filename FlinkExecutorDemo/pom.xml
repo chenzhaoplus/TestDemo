@@ -9,14 +9,15 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>FlinkExecutorDemo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <packaging>jar</packaging>
     <name>FlinkExecutorDemo</name>
     <description>FlinkExecutorDemo</description>
 
     <properties>
         <java.version>15</java.version>
-        <hadoop.version>3.1.1</hadoop.version>
+<!--        <hadoop.version>3.1.1</hadoop.version>-->
+        <hadoop.version>3.1.2</hadoop.version>
         <flink.version>1.11.1</flink.version>
         <scala.binary.version>2.11</scala.binary.version>
     </properties>
