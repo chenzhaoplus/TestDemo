@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+    <property name="LOG_TEMP" value="/ops/data/flinkexecutordemo/logs"/>
+    <include resource="logback-common.xml"/>
+    <root level="info">
+        <appender-ref ref="DEBUG_FILE" />
+        <appender-ref ref="INFO_FILE" />
+        <appender-ref ref="ERROR_FILE" />
+        <appender-ref ref="WARN_FILE" />
+    </root>
+</configuration>
