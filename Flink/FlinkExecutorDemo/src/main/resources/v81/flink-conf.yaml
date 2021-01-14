@@ -30,7 +30,7 @@
 # automatically configure the host name based on the hostname of the node where the
 # JobManager runs.
 
-jobmanager.rpc.address: 172.16.4.102
+jobmanager.rpc.address: v81
 
 # The RPC port where the JobManager is reachable.
 
@@ -57,7 +57,7 @@ taskmanager.memory.process.size: 1728m
 
 # The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
 
-taskmanager.numberOfTaskSlots: 6
+taskmanager.numberOfTaskSlots: 1
 
 # The parallelism used for programs that did not specify and other parallelism.
 
@@ -70,7 +70,7 @@ parallelism.default: 1
 # relative paths relative to a different file system,
 # for example 'hdfs://mynamenode:12345'
 #
-fs.default-scheme: hdfs://master:8020
+# fs.default-scheme
 
 #==============================================================================
 # High Availability
@@ -78,7 +78,7 @@ fs.default-scheme: hdfs://master:8020
 
 # The high-availability mode. Possible options are 'NONE' or 'zookeeper'.
 #
-high-availability: zookeeper
+# high-availability: zookeeper
 
 # The path where metadata for master recovery is persisted. While ZooKeeper stores
 # the small ground truth for checkpoint and leader election, this location stores
@@ -87,13 +87,13 @@ high-availability: zookeeper
 # Must be a durable file system that is accessible from all nodes
 # (like HDFS, S3, Ceph, nfs, ...) 
 #
-high-availability.storageDir: hdfs:///flink/ha/
+# high-availability.storageDir: hdfs:///flink/ha/
 
 # The list of ZooKeeper quorum peers that coordinate the high-availability
 # setup. This must be a list of the form:
 # "host1:clientPort,host2:clientPort,..." (default clientPort: 2181)
 #
-high-availability.zookeeper.quorum: 172.16.4.102:2181,172.16.4.103:2181,172.16.4.104:2181
+# high-availability.zookeeper.quorum: localhost:2181
 
 
 # ACL options are based on https://zookeeper.apache.org/doc/r3.1.2/zookeeperProgrammers.html#sc_BuiltinACLSchemes
@@ -141,11 +141,11 @@ jobmanager.execution.failover-strategy: region
 # The port to which the REST client connects to. If rest.bind-port has
 # not been specified, then the server will bind to this port as well.
 #
-rest.port: 8081
+#rest.port: 8081
 
 # The address to which the REST client will connect to
 #
-rest.address: 0.0.0.0
+#rest.address: 0.0.0.0
 
 # Port range for the REST and web server to bind to.
 #
@@ -158,8 +158,7 @@ rest.address: 0.0.0.0
 # Flag to specify whether job submission is enabled from the web-based
 # runtime monitor. Uncomment to disable.
 
-web.submit.enable: true
-web.upload.dir: /ops/data/flinkupload
+#web.submit.enable: false
 
 #==============================================================================
 # Advanced
@@ -190,7 +189,7 @@ web.upload.dir: /ops/data/flinkupload
 # to 'parent-first' may help with debugging dependency issues.
 #
 # classloader.resolve-order: child-first
-classloader.resolve-order: parent-first
+
 # The amount of memory going to the network stack. These numbers usually need 
 # no tuning. Adjusting them may be necessary in case of an "Insufficient number
 # of network buffers" error. The default min is 64MB, the default max is 1GB.

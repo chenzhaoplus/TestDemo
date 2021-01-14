@@ -2,8 +2,8 @@
 #Author cz
 #Date 2020.8.2
 
-#hdfsDomain="master:8020"
-hdfsDomain="v81:9000"
+hdfsDomain="master:8020"
+#hdfsDomain="v81:9000"
 
 # 参数1：任务jar包在hdfs上的相对路径
 # 参数2：运行jar包传递的参数

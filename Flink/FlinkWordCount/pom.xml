@@ -4,6 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>com.smcaiot</groupId>
+    <artifactId>Flink</artifactId>
+    <version>2.0</version>
+  </parent>
+
   <groupId>com.smcaiot.bigdata</groupId>
   <artifactId>FlinkWordCount</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -17,6 +23,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <main.class>com.smcaiot.bigdata.demo.WordCount</main.class>
+    <flink.version>1.11.1</flink.version>
+    <scala.binary.version>2.12</scala.binary.version>
   </properties>
 
   <dependencies>
@@ -30,20 +38,26 @@
     <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka -->
     <dependency>
       <groupId>org.apache.flink</groupId>
-      <artifactId>flink-connector-kafka_2.12</artifactId>
-      <version>1.11.1</version>
+      <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
+      <version>${flink.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java -->
     <dependency>
       <groupId>org.apache.flink</groupId>
-      <artifactId>flink-streaming-java_2.12</artifactId>
-      <version>1.11.1</version>
+      <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
+      <version>${flink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-avro</artifactId>
-      <version>1.11.1</version>
+      <version>${flink.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-clients_${scala.binary.version}</artifactId>
+      <version>${flink.version}</version>
     </dependency>
 
   </dependencies>
