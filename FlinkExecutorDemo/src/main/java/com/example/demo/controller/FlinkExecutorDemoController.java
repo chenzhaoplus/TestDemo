@@ -45,20 +45,20 @@ import java.util.List;
 @Slf4j
 public class FlinkExecutorDemoController {
 
-    private static final String HDFS_DOMAIN = "master:8020";
-//    private static final String HDFS_DOMAIN = "v81:9000";
+//    private static final String HDFS_DOMAIN = "master:8020";
+    private static final String HDFS_DOMAIN = "v81:9000";
 
     @PostMapping(value = "/execFlinkJob")
-    @ApiOperation(value = "执行flink任务", notes = "")
+    @ApiOperation(value = "脚本执行flink任务", notes = "")
     public RestResp execFlinkJob(@RequestBody FlinkJobParams params) {
-        log.info("begin");
+        log.info("[脚本执行flink任务] begin");
         try {
             String jarHdfsUrl = params.getJarHdfsUrl();
             if(!validPath(jarHdfsUrl)){
                 return RestResp.failureRestResp("文件路径不正确: "+jarHdfsUrl);
             }
             String fileName = jarHdfsUrl.substring(jarHdfsUrl.lastIndexOf("/") + 1, jarHdfsUrl.length());
-            log.info("fileName = {}", fileName);
+            log.info("[脚本执行flink任务] fileName = {}", fileName);
 
 //            List<String> hdfsGet = CommandUtil.runLinuxCmd("hdfs dfs -get " + jarHdfsUrl + " /ops/data/flinkexecutordemo/");
 //            List<String> flinkRun = CommandUtil.runLinuxCmd("/ops/app/flink-1.11.1/bin/flink run /ops/data/flinkexecutordemo/" + fileName);
@@ -71,9 +71,21 @@ public class FlinkExecutorDemoController {
 //            sb.append("-Dtaskmanager.numberOfTaskSlots=1 \\");
 //            sb.append("-Dyarn.provided.lib.dirs=\"hdfs://"+HDFS_DOMAIN+"/flink/libs/lib;hdfs://"+HDFS_DOMAIN+"/flink/libs/plugins\" hdfs://"+HDFS_DOMAIN+jarHdfsUrl);
 //            CommandUtil.runLinuxCmd(sb.toString());
-            CommandUtil.runLinuxCmd("/ops/app/flinkexecutordemo/flink-application.sh "+jarHdfsUrl);
 
-            log.info("end");
+            StringBuffer args = new StringBuffer();
+            if(!CollectionUtils.isEmpty(params.getArgsList())){
+                for(String arg:params.getArgsList()){
+                    args.append(" ");
+                    args.append(arg);
+                    args.append(" ");
+                }
+            }
+            log.info("[脚本执行flink任务] args = {}", args.toString());
+            String cmd = params.getScriptPath() + " \"" + jarHdfsUrl + "\" \"" + args.toString() + "\"";
+            CommandUtil.runLinuxCmd(cmd);
+            log.info("[脚本执行flink任务] cmd = {}", cmd);
+
+            log.info("[脚本执行flink任务] end");
             return RestResp.successRestResp("成功");
         } catch (Exception e) {
             log.error(e.getMessage(), e);

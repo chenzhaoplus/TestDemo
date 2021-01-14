@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 public class FlinkJobParams {
 
+    private String scriptPath;
     private String jarHdfsUrl;
     private List<String> argsList;
 

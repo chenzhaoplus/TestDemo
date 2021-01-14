@@ -18,5 +18,5 @@ start(){
 }
 
 start "${1}" "${2}"
-# 执行：
+# 执行示例：
 # ./flink-application.sh "/flink/jars/flinkwordcount-jar-with-dependencies.jar" "--input file:///ops/app/flinkexecutordemo/input.log --output file:///ops/app/flinkexecutordemo/output.log"
