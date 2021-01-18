@@ -12,8 +12,11 @@ import java.util.List;
 @Data
 public class FlinkJobParams {
 
+    /** flink任务执行脚本的本地路径 */
     private String scriptPath;
+    /** flink任务的jar包在hdfs上的地址 */
     private String jarHdfsUrl;
+    /** 任务参数列表 */
     private List<String> argsList;
 
 }
