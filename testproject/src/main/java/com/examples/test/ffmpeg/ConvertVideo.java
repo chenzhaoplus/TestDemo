@@ -208,16 +208,14 @@ public class ConvertVideo {
         command.add(outputPath + System.currentTimeMillis() + ".mp4");
         try {
             // 方案1
-//        Process videoProcess = Runtime.getRuntime().exec(ffmpegPath + "ffmpeg -i " + oldfilepath 
-//                + " -ab 56 -ar 22050 -qscale 8 -r 15 -s 600x500 "
-//                + outputPath + "a.flv");
+        Process videoProcess = Runtime.getRuntime().exec(ffmpegPath + "ffmpeg -i " + oldfilepath
+                + " -ab 56 -ar 22050 -qscale 8 -r 15 -s 600x500 "
+                + outputPath + System.currentTimeMillis()+ ".mp4");
 
             // 方案2
-            Process videoProcess = new ProcessBuilder(command).redirectErrorStream(true).start();
-
-            new PrintStream(videoProcess.getErrorStream()).start();
-
-            new PrintStream(videoProcess.getInputStream()).start();
+//            Process videoProcess = new ProcessBuilder(command).redirectErrorStream(true).start();
+//            new PrintStream(videoProcess.getErrorStream()).start();
+//            new PrintStream(videoProcess.getInputStream()).start();
 
             videoProcess.waitFor();
 
