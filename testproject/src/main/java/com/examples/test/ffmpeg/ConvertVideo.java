@@ -12,7 +12,7 @@ public class ConvertVideo {
 //    private static String outputPath = "D:\\linux\\ffmpeg\\output\\";
 //    private static String ffmpegPath = "D:\\linux\\ffmpeg\\ffmpeg-20171225-be2da4c-win64-static\\bin\\";
 
-    private static String inputPath = "/ops/data/ffmpeg/input/1593745841.mov";
+    private static String inputPath = "/ops/data/ffmpeg/input/1.mov";
     private static String outputPath = "/ops/data/ffmpeg/output/";
     private static String ffmpegPath = "/ops/app/ffmpeg-4.3/";
 
@@ -197,9 +197,9 @@ public class ConvertVideo {
 //        command.add("0");
 //        command.add("-c:a");
 //        command.add("aac");
-
 //        command.add("-strict");
 //        command.add("-2");
+
         command.add("-pix_fmt");
         command.add("yuv420p");
 
