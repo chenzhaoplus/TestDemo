@@ -190,19 +190,22 @@ public class ConvertVideo {
         command.add(ffmpegPath + "ffmpeg");
         command.add("-i");
         command.add(oldfilepath);
+
 //        command.add("-c:v");
 //        command.add("libx264");
 //        command.add("-mbd");
 //        command.add("0");
 //        command.add("-c:a");
 //        command.add("aac");
-        command.add("-strict");
-        command.add("-2");
+
+//        command.add("-strict");
+//        command.add("-2");
         command.add("-pix_fmt");
         command.add("yuv420p");
+
         command.add("-movflags");
         command.add("faststart");
-        command.add(outputPath + "a.mp4");
+        command.add(outputPath + System.currentTimeMillis() + ".mp4");
         try {
             // 方案1
 //        Process videoProcess = Runtime.getRuntime().exec(ffmpegPath + "ffmpeg -i " + oldfilepath 
