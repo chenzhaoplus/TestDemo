@@ -8,21 +8,21 @@ import java.util.List;
 
 public class ConvertVideo {
 
-    private static String inputPath = "";
-
-    private static String outputPath = "";
-
-    private static String ffmpegPath = "";
+    private static String inputPath = "D:\\linux\\ffmpeg\\input\\1593745841.mov";
+    private static String outputPath = "D:\\linux\\ffmpeg\\output\\";
+    private static String ffmpegPath = "D:\\linux\\ffmpeg\\ffmpeg-20171225-be2da4c-win64-static\\bin\\";
 
     public static void main(String args[]) throws IOException {
-        getPath();
+        long beginTime = System.currentTimeMillis();
+//        getPath();
 
         if (!checkfile(inputPath)) {
             System.out.println(inputPath + " is not file");
             return;
         }
         if (process()) {
-            System.out.println("ok");
+            long endTime = System.currentTimeMillis();
+            System.out.println("ok, totalTime = " + (endTime - beginTime));
         }
     }
 
@@ -94,6 +94,7 @@ public class ConvertVideo {
 
     /**
      * 对ffmpeg无法解析的文件格式(wmv9，rm，rmvb等), 可以先用别的工具（mencoder）转换为avi(ffmpeg能解析的)格式.
+     *
      * @param type
      * @return
      */
@@ -128,6 +129,7 @@ public class ConvertVideo {
 
     /**
      * ffmpeg能解析的格式：（asx，asf，mpg，wmv，3gp，mp4，mov，avi，flv等）
+     *
      * @param oldfilepath
      * @return
      */
