@@ -92,6 +92,7 @@ public class WordCount {
                             .sum(1);
             System.out.println("counts = " + counts);
 
+//            int i = 1/0;
             // emit result
             if (params.has("output")) {
                 System.out.println("get output "+params.get("output"));
@@ -104,8 +105,8 @@ public class WordCount {
                 counts.print();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println(e);
+            throw new Exception(e.getMessage());
         }
     }
 
