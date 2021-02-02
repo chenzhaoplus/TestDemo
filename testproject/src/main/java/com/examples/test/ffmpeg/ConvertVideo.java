@@ -8,9 +8,13 @@ import java.util.List;
 
 public class ConvertVideo {
 
-    private static String inputPath = "D:\\linux\\ffmpeg\\input\\1593745841.mov";
-    private static String outputPath = "D:\\linux\\ffmpeg\\output\\";
-    private static String ffmpegPath = "D:\\linux\\ffmpeg\\ffmpeg-20171225-be2da4c-win64-static\\bin\\";
+//    private static String inputPath = "D:\\linux\\ffmpeg\\input\\1593745841.mov";
+//    private static String outputPath = "D:\\linux\\ffmpeg\\output\\";
+//    private static String ffmpegPath = "D:\\linux\\ffmpeg\\ffmpeg-20171225-be2da4c-win64-static\\bin\\";
+
+    private static String inputPath = "/ops/data/ffmpeg/input/1593745841.mov";
+    private static String outputPath = "/ops/data/ffmpeg/output/";
+    private static String ffmpegPath = "/ops/app/ffmpeg-4.3/";
 
     public static void main(String args[]) throws IOException {
         long beginTime = System.currentTimeMillis();
@@ -186,12 +190,12 @@ public class ConvertVideo {
         command.add(ffmpegPath + "ffmpeg");
         command.add("-i");
         command.add(oldfilepath);
-        command.add("-c:v");
-        command.add("libx264");
-        command.add("-mbd");
-        command.add("0");
-        command.add("-c:a");
-        command.add("aac");
+//        command.add("-c:v");
+//        command.add("libx264");
+//        command.add("-mbd");
+//        command.add("0");
+//        command.add("-c:a");
+//        command.add("aac");
         command.add("-strict");
         command.add("-2");
         command.add("-pix_fmt");
