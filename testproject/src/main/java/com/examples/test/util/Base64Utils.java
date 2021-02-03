@@ -4,12 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.imageio.stream.FileImageInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -92,11 +87,11 @@ public class Base64Utils {
      * @return
      * @path 图片路径
      */
-    public static byte[] imageTobyte(String path) {
+    public static byte[] fileTobyte(String path) {
         byte[] data = null;
-        FileImageInputStream input = null;
+        FileInputStream input = null;
         try {
-            input = new FileImageInputStream(new File(path));
+            input = new FileInputStream(new File(path));
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             byte[] buf = new byte[1024];
             int numBytesRead = 0;
@@ -119,6 +114,23 @@ public class Base64Utils {
         Pattern p = Pattern.compile(reg);
         Matcher m = p.matcher(str);
         return m.replaceAll("");
+    }
+
+    /**
+     * base64 视频base64字符串
+     * videoFilePath  输出视频文件路径带文件名
+     */
+    public static void base64ToFile(String base64, String videoFilePath) {
+        try {
+            byte[] bypes = decode(base64);
+            File file = new File(videoFilePath);
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bypes, 0, bypes.length);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            System.out.println("base64转换为视频异常: "+e.getMessage());
+        }
     }
 
 }
