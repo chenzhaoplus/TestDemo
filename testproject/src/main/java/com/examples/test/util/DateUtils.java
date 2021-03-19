@@ -25,10 +25,30 @@ public class DateUtils {
     static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
     // 时间格式
     public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
-    // 时间格式
     public static final String DATE_FOMATE_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
     public static final String DATE_FOMATE_YYMMDDHHMM = "yyMMddHHmm";
+    public static final String DATE_FOMATE_HHMM = "HH:mm";
+
+    /**
+     * 判断时间是否在时间段内
+     *
+     * @param nowTime
+     * @param beginTime 例如："06:00"
+     * @param endTime 例如： "23:00"
+     * @return
+     */
+    public static boolean belongCalendar(Date nowTime, String beginTime, String endTime) {
+        Calendar date = Calendar.getInstance();
+        date.setTime(nowTime);
+
+        Calendar begin = Calendar.getInstance();
+        begin.setTime(parseDate(beginTime, DATE_FOMATE_HHMM));
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(parseDate(endTime, DATE_FOMATE_HHMM));
+
+        return date.after(begin) && date.before(end);
+    }
 
     /**
      * 把date truncate到日期为止,去掉时分秒
