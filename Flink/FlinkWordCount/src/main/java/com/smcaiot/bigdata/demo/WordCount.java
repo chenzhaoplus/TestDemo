@@ -45,65 +45,82 @@ public class WordCount {
 //        }
 //    }
 
+//    public static void main(String[] args) throws Exception {
+//        try {
+//            System.out.println("----------- hello begin ------------------");
+//            if(args!=null && args.length>0){
+//                for (int i = 0; i < args.length; i++) {
+//                    System.out.println("args"+i+" = "+args[i]);
+//                }
+//            }
+//
+//            System.out.println("----------- MultipleParameterTool.fromArgs begin ------------------");
+//            final MultipleParameterTool params = MultipleParameterTool.fromArgs(args);
+//
+//            // set up the execution environment
+//            System.out.println("----------- ExecutionEnvironment.getExecutionEnvironment begin ------------------");
+//            final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
+//
+//            // make parameters available in the web interface
+//            env.getConfig().setGlobalJobParameters(params);
+//
+//            // get input data
+//            DataSet<String> text = null;
+//            if (params.has("input")) {
+//                System.out.println("get input "+params.get("input"));
+//                // union all the inputs from text files
+//                for (String input : params.getMultiParameterRequired("input")) {
+//                    if (text == null) {
+//                        text = env.readTextFile(input);
+//                    } else {
+//                        text = text.union(env.readTextFile(input));
+//                    }
+//                }
+//                Preconditions.checkNotNull(text, "Input DataSet should not be null.");
+//            } else {
+//                // get default test text data
+//                System.out.println("Executing WordCount example with default input data set.");
+//                System.out.println("Use --input to specify file input.");
+//                text = WordCountData.getDefaultTextLineDataSet(env);
+//            }
+//
+//            DataSet<Tuple2<String, Integer>> counts =
+//                    // split up the lines in pairs (2-tuples) containing: (word,1)
+//                    text.flatMap(new Tokenizer())
+//                            // group by the tuple field "0" and sum up tuple field "1"
+//                            .groupBy(0)
+//                            .sum(1);
+//            System.out.println("counts = " + counts);
+//
+////            int i = 1/0;
+//            // emit result
+//            if (params.has("output")) {
+//                System.out.println("get output "+params.get("output"));
+////                counts.writeAsCsv(params.get("output"), "\n", " ");
+//                counts.writeAsText(params.get("output"));
+//                // execute program
+//                env.execute("WordCount Example");
+//            } else {
+//                System.out.println("Printing result to stdout. Use --output to specify output path.");
+//                counts.print();
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            throw new Exception(e.getMessage());
+//        }
+//    }
+
     public static void main(String[] args) throws Exception {
         try {
-            System.out.println("----------- hello begin ------------------");
-            if(args!=null && args.length>0){
-                for (int i = 0; i < args.length; i++) {
-                    System.out.println("args"+i+" = "+args[i]);
-                }
-            }
-
-            System.out.println("----------- MultipleParameterTool.fromArgs begin ------------------");
-            final MultipleParameterTool params = MultipleParameterTool.fromArgs(args);
-
-            // set up the execution environment
-            System.out.println("----------- ExecutionEnvironment.getExecutionEnvironment begin ------------------");
-            final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
-
-            // make parameters available in the web interface
-            env.getConfig().setGlobalJobParameters(params);
-
-            // get input data
-            DataSet<String> text = null;
-            if (params.has("input")) {
-                System.out.println("get input "+params.get("input"));
-                // union all the inputs from text files
-                for (String input : params.getMultiParameterRequired("input")) {
-                    if (text == null) {
-                        text = env.readTextFile(input);
-                    } else {
-                        text = text.union(env.readTextFile(input));
-                    }
-                }
-                Preconditions.checkNotNull(text, "Input DataSet should not be null.");
-            } else {
-                // get default test text data
-                System.out.println("Executing WordCount example with default input data set.");
-                System.out.println("Use --input to specify file input.");
-                text = WordCountData.getDefaultTextLineDataSet(env);
-            }
-
-            DataSet<Tuple2<String, Integer>> counts =
-                    // split up the lines in pairs (2-tuples) containing: (word,1)
-                    text.flatMap(new Tokenizer())
-                            // group by the tuple field "0" and sum up tuple field "1"
-                            .groupBy(0)
-                            .sum(1);
-            System.out.println("counts = " + counts);
-
-//            int i = 1/0;
-            // emit result
-            if (params.has("output")) {
-                System.out.println("get output "+params.get("output"));
-//                counts.writeAsCsv(params.get("output"), "\n", " ");
-                counts.writeAsText(params.get("output"));
-                // execute program
-                env.execute("WordCount Example");
-            } else {
-                System.out.println("Printing result to stdout. Use --output to specify output path.");
-                counts.print();
-            }
+            // 1.获取运行环境
+            ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
+            // 2.创建数据集
+            DataSet<String> text = env.fromElements("java java scala", "scala java python");
+            // 3.flatMap将数据转成大写并以空格进行分割
+            // groupBy归纳相同的key，sum将value相加
+            DataSet<Tuple2<String, Integer>> counts = text.flatMap(new Tokenizer()).groupBy(0).sum(1);
+            // 4.打印
+            counts.print();
         } catch (Exception e) {
             System.out.println(e);
             throw new Exception(e.getMessage());
