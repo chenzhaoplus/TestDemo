@@ -5,6 +5,7 @@ import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.MultipleParameterTool;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.util.Collector;
 import org.apache.flink.util.Preconditions;
 
@@ -120,7 +121,22 @@ public class WordCount {
             // groupBy归纳相同的key，sum将value相加
             DataSet<Tuple2<String, Integer>> counts = text.flatMap(new Tokenizer()).groupBy(0).sum(1);
             // 4.打印
-            counts.print();
+            System.out.println("----------- MultipleParameterTool.fromArgs begin ------------------");
+            final MultipleParameterTool params = MultipleParameterTool.fromArgs(args);
+
+            // make parameters available in the web interface
+            env.getConfig().setGlobalJobParameters(params);
+
+            if (params.has("output")) {
+                System.out.println("get output " + params.get("output"));
+//                counts.writeAsCsv(params.get("output"), "\n", " ");
+                counts.writeAsText(params.get("output"), FileSystem.WriteMode.OVERWRITE);
+                // execute program
+                env.execute("WordCount Example");
+            } else {
+                System.out.println("Printing result to stdout. Use --output to specify output path.");
+                counts.print();
+            }
         } catch (Exception e) {
             System.out.println(e);
             throw new Exception(e.getMessage());
@@ -134,7 +150,6 @@ public class WordCount {
      */
     public static final class Tokenizer
             implements FlatMapFunction<String, Tuple2<String, Integer>> {
-
         @Override
         public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
             // normalize and split the line

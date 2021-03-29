@@ -36,11 +36,11 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka -->
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
-      <version>${flink.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.apache.flink</groupId>-->
+<!--      <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>-->
+<!--      <version>${flink.version}</version>-->
+<!--    </dependency>-->
 
     <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java -->
     <dependency>
