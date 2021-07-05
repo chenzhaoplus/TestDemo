@@ -1,4 +1,4 @@
-package com.examples.test.netty;
+package com.examples.test.netty.official;
 
 import io.netty.bootstrap.ServerBootstrap;
 
