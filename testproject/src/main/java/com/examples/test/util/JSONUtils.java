@@ -17,8 +17,8 @@ import java.nio.charset.StandardCharsets;
 public class JSONUtils {
 
     public static String getPathFromFile(String relativePath) {
-        String path = JSONUtils.class.getResource(relativePath).getPath();
-        return path;
+        String path = JSONUtils.class.getResource("/").getPath();
+        return path + relativePath;
     }
 
     /**
