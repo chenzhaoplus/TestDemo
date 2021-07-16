@@ -17,7 +17,13 @@ import java.nio.charset.StandardCharsets;
 public class JSONUtils {
 
     public static String getPathFromFile(String relativePath) {
-        String path = JSONUtils.class.getResource("/").getPath();
+        String os = System.getProperty("os.name").toLowerCase();
+        String path = "";
+        if (os.contains("windows")) {
+            path = JSONUtils.class.getResource("/").getPath();
+        } else {
+            path = "/opt/";
+        }
         return path + relativePath;
     }
 
