@@ -1,5 +1,6 @@
 package com.examples.test.file;
 
+import cn.hutool.core.io.FileUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,8 +16,10 @@ import java.nio.charset.StandardCharsets;
 public class WriteHtmlTest {
 
     public static void main(String[] args) throws IOException {
+        String dirPath = "D:\\html\\test\\";
+        FileUtil.mkdir(dirPath);
         String text = "<html></html>";
-        String filePath = "D:\\test.html";
+        String filePath = dirPath + "test.html";
         File file = new File(filePath);
 
         //textToFile(text, filePath);
