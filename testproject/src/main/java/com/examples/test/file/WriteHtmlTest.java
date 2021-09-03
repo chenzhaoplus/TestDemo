@@ -17,14 +17,18 @@ public class WriteHtmlTest {
 
     public static void main(String[] args) throws IOException {
         String dirPath = "D:\\html\\test\\";
-        FileUtil.mkdir(dirPath);
-        String text = "<html></html>";
-        String filePath = dirPath + "test.html";
-        File file = new File(filePath);
+        //FileUtil.mkdir(dirPath);
+        //String text = "<html></html>";
+        //String filePath = dirPath + "test.html";
+        //File file = new File(filePath);
+        //
+        ////textToFile(text, filePath);
+        //
+        //FileUtils.writeStringToFile(new File(filePath), text);
 
-        //textToFile(text, filePath);
-
-        FileUtils.writeStringToFile(new File(filePath), text);
+        String jsonFilePath = dirPath + "test.json";
+        String jsonText = "{\"id\":1,\"infoId\":\"54365yty\",\"title\":\"资讯2\",\"introduction\":\"\",\"infoType\":\"\",\"coverPath\":\"\"\"crtTime\":\"2021-09-02 09:10:29\",\"crtBy\":\"\"}";
+        FileUtils.writeStringToFile(new File(jsonFilePath), jsonText + "\n", true);
     }
 
     public static void textToFile(String text, String filePath) {
