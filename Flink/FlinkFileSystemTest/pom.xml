@@ -140,6 +140,21 @@
       <version>${flink.version}</version>
     </dependency>
 
+    <!--easypoi导入导出-->
+    <dependency>
+      <groupId>cn.afterturn</groupId>
+      <artifactId>easypoi-spring-boot-starter</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>cn.bestwu</groupId>
+      <artifactId>fastdfs-client-java</artifactId>
+      <version>1.27</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>io.leopard</groupId>
@@ -156,6 +171,11 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>${fastjson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.16</version>
     </dependency>
   </dependencies>
 
