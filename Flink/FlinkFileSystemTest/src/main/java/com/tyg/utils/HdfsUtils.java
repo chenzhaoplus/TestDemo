@@ -74,12 +74,13 @@ public class HdfsUtils {
                 .collect(Collectors.toList());
         Validate.notEmpty(files, "文件所在目录没有文件可以下载");
 
+        FileSystem fileSystem = getFileSystem(connConf);
+
         File file = new File(dstDir);
         if (!file.exists()) {
             file.mkdirs();
         }
 
-        FileSystem fileSystem = getFileSystem(connConf);
         List<List<String>> csvDatas = new ArrayList<>();
         for (FsResponseEntity f : files) {
             try (FSDataInputStream fis = fileSystem.open(new Path(srcDir + "/" + f.getName()))) {
@@ -103,6 +104,38 @@ public class HdfsUtils {
         }
 
         return "";
+    }
+
+    @SneakyThrows(IOException.class)
+    public static boolean delResources(FsConnConfig connConf, String path, Boolean recursive) {
+        Validate.isTrue(exist(connConf, path), "要删除的文件或目录不存在！");
+        FileSystem fileSystem = getFileSystem(connConf);
+        return fileSystem.delete(new Path(path), recursive);
+    }
+
+    public static boolean delFiles(FsConnConfig connConf, String dirPath, Boolean recursive) {
+        Validate.isTrue(exist(connConf, dirPath), "目录不存在！");
+        FileSystem fileSystem = getFileSystem(connConf);
+        List<FsResponseEntity> files = listFiles(connConf, dirPath).stream()
+                .filter(entity -> StrUtil.equals("file", entity.getType()))
+                .collect(Collectors.toList());
+        return delFiles(connConf, dirPath, recursive, files);
+    }
+
+    public static boolean delFiles(FsConnConfig connConf, String dirPath, Boolean recursive, List<FsResponseEntity> files) {
+        if (CollectionUtils.isEmpty(files)) {
+            return true;
+        }
+        try {
+            FileSystem fileSystem = getFileSystem(connConf);
+            boolean b = true;
+            for (FsResponseEntity file : files) {
+                b = b && fileSystem.delete(new Path(dirPath + "/" + file.getName()), recursive);
+            }
+            return b;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     @SneakyThrows(IOException.class)

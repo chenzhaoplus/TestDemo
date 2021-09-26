@@ -46,6 +46,7 @@ public class FlinkFsTest {
 
         createCsvTable(tEnv);
         HdfsUtils.uploadCsvByExcel(connConf, srcExcel, dstDir + "/" + modelId);
+        HdfsUtils.delFiles(connConf, downDirPath + "/" + modelId, true);
         insertCsvTable(tEnv);
         HdfsUtils.downFileByCsv(connConf, downDirPath + "/" + modelId, toDirPath);
 
