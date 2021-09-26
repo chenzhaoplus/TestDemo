@@ -19,6 +19,7 @@
         <module>KettleDemo</module>
         <module>testproject</module>
         <module>Flink</module>
+        <module>Flink/FlinkFileSystemTest</module>
     </modules>
     <properties>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
