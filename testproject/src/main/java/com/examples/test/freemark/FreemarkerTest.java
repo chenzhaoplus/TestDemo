@@ -39,11 +39,14 @@ public class FreemarkerTest {
             String createSql = IoUtil.read(is, StandardCharsets.UTF_8);
             Template template = new Template("strTpl", createSql, cfg);
             StringWriter result = new StringWriter();
-            Map map = new HashMap();
-            map = new HashMap();
-            map.put("tableName", "analysis_air_quality_record");
-            map.put("cols", "`id` bigint");
-            template.process(map, result);
+            //Map map = new HashMap();
+            //map.put("tableName", "analysis_air_quality_record");
+            //map.put("cols", "`id` bigint");
+            //template.process(map, result);
+            TableInfo info = TableInfo.builder()
+                    .tableName("analysis_air_quality_record")
+                    .cols("`id` bigint").build();
+            template.process(info, result);
             System.out.println(result.toString());
         }
     }
