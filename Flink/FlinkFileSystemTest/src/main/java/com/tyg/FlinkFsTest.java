@@ -31,7 +31,7 @@ public class FlinkFsTest {
         String srcExcel = "C:\\Users\\chenz\\Desktop\\123.xlsx";
         String dstDir = "/csv/input";
         String modelId = "45s6d4fs6f16ertwfw";
-        String downDirPath = "/csv/output";
+        String downDir = "/csv/output";
         String toDirPath = "C:\\Users\\chenz\\Desktop";
         FsConnConfig connConf = FsConnConfig.builder()
                 .ip("172.16.4.102")
@@ -46,12 +46,11 @@ public class FlinkFsTest {
 
         createCsvTable(tEnv);
         HdfsUtils.uploadCsvByExcel(connConf, srcExcel, dstDir + "/" + modelId);
-        HdfsUtils.delFiles(connConf, downDirPath + "/" + modelId, true);
+        HdfsUtils.delFiles(connConf, downDir + "/" + modelId, true);
         insertCsvTable(tEnv);
-        HdfsUtils.downFileByCsv(connConf, downDirPath + "/" + modelId, toDirPath);
+        HdfsUtils.downFileByCsv(connConf, downDir + "/" + modelId, toDirPath);
 
         //testExeSql(tEnv);
-
     }
 
     private static void createCsvTable(TableEnvironment tEnv) {
@@ -92,7 +91,6 @@ public class FlinkFsTest {
 
         tEnv.executeSql(srcSql);
         tEnv.executeSql(dstSql);
-
     }
 
     private static void insertCsvTable(TableEnvironment tEnv) {
