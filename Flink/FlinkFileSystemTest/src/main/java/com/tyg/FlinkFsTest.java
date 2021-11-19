@@ -29,9 +29,9 @@ public class FlinkFsTest {
 
     public static void main(String[] args) {
         String srcExcel = "C:\\Users\\chenz\\Desktop\\123.xlsx";
-        String dstDir = "/csv/input";
+        String dstDir = "/csv/in";
         String modelId = "45s6d4fs6f16ertwfw";
-        String downDir = "/csv/output";
+        String downDir = "/csv/out";
         String toDirPath = "C:\\Users\\chenz\\Desktop";
         FsConnConfig connConf = FsConnConfig.builder()
                 .ip("172.16.4.102")
@@ -55,37 +55,23 @@ public class FlinkFsTest {
 
     private static void createCsvTable(TableEnvironment tEnv) {
         String srcSql = "CREATE TABLE csvin (\n" +
-                "\t`测试人员` string,\n" +
-                "\t`TAPD编号` string,\n" +
-                "\t`项目名称` string,\n" +
-                "\t`任务名称` string,\n" +
-                "\t`转测试时间` string,\n" +
-                "\t`状态` string,\n" +
-                "\t`测试进度 （0-100%）` string,\n" +
-                "\t`中止原因` string,\n" +
-                "\t`任务对应负责开发` string,\n" +
-                "\t`备注 (测试过程中遇到的问题)` string,\n" +
-                "\t`待提测` string\n" +
+                "\t`设备类型` string,\n" +
+                "\t`字段` string,\n" +
+                "\t`字段类型` string,\n" +
+                "\t`字段说明` string\n" +
                 ") WITH (\n" +
                 "  'connector' = 'filesystem',           \n" +
-                "  'path' = 'hdfs://master.dev.smcaiot.com:8020/csv/input/45s6d4fs6f16ertwfw',\n" +
+                "  'path' = 'hdfs://master.dev.smcaiot.com:8020/csv/in/45s6d4fs6f16ertwfw',\n" +
                 "  'format' = 'csv'\n" +
                 ")";
         String dstSql = "CREATE TABLE csvout (\n" +
-                "\t`测试人员` string,\n" +
-                "\t`TAPD编号` string,\n" +
-                "\t`项目名称` string,\n" +
-                "\t`任务名称` string,\n" +
-                "\t`转测试时间` string,\n" +
-                "\t`状态` string,\n" +
-                "\t`测试进度 （0-100%）` string,\n" +
-                "\t`中止原因` string,\n" +
-                "\t`任务对应负责开发` string,\n" +
-                "\t`备注 (测试过程中遇到的问题)` string,\n" +
-                "\t`待提测` string\n" +
+                "\t`设备类型` string,\n" +
+                "\t`字段` string,\n" +
+                "\t`字段类型` string,\n" +
+                "\t`字段说明` string\n" +
                 ") WITH (\n" +
                 "  'connector' = 'filesystem',           \n" +
-                "  'path' = 'hdfs://master.dev.smcaiot.com:8020/csv/output/45s6d4fs6f16ertwfw',\n" +
+                "  'path' = 'hdfs://master.dev.smcaiot.com:8020/csv/out/45s6d4fs6f16ertwfw',\n" +
                 "  'format' = 'csv'\n" +
                 ")";
 

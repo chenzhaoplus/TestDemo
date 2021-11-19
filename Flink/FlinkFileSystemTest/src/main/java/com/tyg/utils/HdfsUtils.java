@@ -114,7 +114,10 @@ public class HdfsUtils {
     }
 
     public static boolean delFiles(FsConnConfig connConf, String dirPath, Boolean recursive) {
-        Validate.isTrue(exist(connConf, dirPath), "目录不存在！");
+        //Validate.isTrue(exist(connConf, dirPath), "目录不存在！");
+        if (!exist(connConf, dirPath)) {
+            return false;
+        }
         FileSystem fileSystem = getFileSystem(connConf);
         List<FsResponseEntity> files = listFiles(connConf, dirPath).stream()
                 .filter(entity -> StrUtil.equals("file", entity.getType()))
