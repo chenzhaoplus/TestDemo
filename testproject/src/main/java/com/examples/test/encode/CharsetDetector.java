@@ -68,7 +68,7 @@ public class CharsetDetector {
     }
 
     public static void main(String[] args) {
-        File f = new File("C:\\Users\\chenz\\Desktop\\gbk.csv");
+        File f = new File("C:\\Users\\chenz\\Desktop\\导出文件 (3).csv");
         String[] charsetsToBeTested = {"UTF-8", "windows-1253", "ISO-8859-7", "GBK"};
         CharsetDetector cd = new CharsetDetector();
         Charset charset = cd.detectCharset(f, charsetsToBeTested);
