@@ -23,7 +23,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 public class FlinkFsTest {
 
     public static final String BATCH = "batch";
-    public static final String FLINK_IP = "172.16.4.102";
+    public static final String FLINK_IP = "172.16.88.102";
     public static final Integer FLINK_PORT = 8081;
     private static final String FLINK_REMOTE_TARGET = "remote";
 
@@ -34,7 +34,7 @@ public class FlinkFsTest {
         String downDir = "/csv/out";
         String toDirPath = "C:\\Users\\chenz\\Desktop";
         FsConnConfig connConf = FsConnConfig.builder()
-                .ip("172.16.4.102")
+                .ip("172.16.88.102")
                 .port("8020")
                 .build();
 
