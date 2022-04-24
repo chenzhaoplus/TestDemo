@@ -34,8 +34,8 @@ public class ReflectUtil {
 
         try{
             // print class name and superclass name (if != Object)
-            Class<?> cl = Class.forName(name);
-            Class<?> supercl = cl.getSuperclass();
+            Class cl = Class.forName(name);
+            Class supercl = cl.getSuperclass();
             String modifiers = Modifier.toString(cl.getModifiers());
             if (modifiers.length()>0) {
                 System.out.print(modifiers+" ");
