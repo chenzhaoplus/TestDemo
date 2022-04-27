@@ -8,6 +8,7 @@ import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.FileHeader;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -53,9 +54,8 @@ public class ZipUtil {
         if (CollectionUtil.isEmpty(srcFiles)) {
             return null;
         }
-        //mkDirIfNotExist(destFile);
-        FileUtil.mkdir(destFile);
         delFile(destFile);
+        FileUtil.mkdir(FilenameUtils.getFullPath(destFile));
         ZipFile zipFile = createZipFile(srcFiles, destFile, passwd, fileSize);
         return getSplitZipFiles(zipFile.getSplitZipFiles());
     }
@@ -134,12 +134,12 @@ public class ZipUtil {
      * 解压缩(支持分卷压缩解压)
      *
      * @param zipFilePath 指定的ZIP压缩文件 路径
-     * @param dest        解压目录
+     * @param destDir        解压目录
      * @param passwd      ZIP文件的密码 。需要解压密码时必须传入，否则传入null即可
      * @return 解压后文件名数组
      * @throws ZipException 压缩文件有损坏或者解压缩失败抛出
      */
-    public static String[] unzipBySplit(String zipFilePath, String dest, String passwd) throws ZipException {
+    public static String[] unzipBySplit(String zipFilePath, String destDir, String passwd) throws ZipException {
         File zipFile = new File(zipFilePath);
         ZipFile zFile = new ZipFile(zipFile);
         //设置编码格式
@@ -148,13 +148,13 @@ public class ZipUtil {
             throw new ZipException("压缩文件不合法，可能被损坏!");
         }
         validFilePasswd(zFile, passwd);
-        extractAllFiles(dest, zFile);
+        extractAllFiles(destDir, zFile);
         return getExtractFiles(zFile);
     }
 
-    private static void extractAllFiles(String dest, ZipFile zFile) throws ZipException {
-        FileUtil.mkdir(dest);
-        zFile.extractAll(dest);
+    private static void extractAllFiles(String destDir, ZipFile zFile) throws ZipException {
+        FileUtil.mkdir(destDir);
+        zFile.extractAll(destDir);
     }
 
     private static String[] getExtractFiles(ZipFile zFile) throws ZipException {
