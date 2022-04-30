@@ -15,12 +15,12 @@ public class ImageUtil {
 
         String srcFile = "D:\\zip\\pic\\1.jpg";
         String zipFile = "D:\\zip\\pic\\2.jpg";
-        compressImg(srcFile, 50 * 1024, zipFile);
+        compressImg(srcFile, 50 * 1024, zipFile, 0.8);
 
     }
 
-    public static void compressImg(String srcFile, long maxSize, String zipFile) throws IOException {
-        compressImg(new File(srcFile), maxSize, new File(zipFile));
+    public static void compressImg(String srcFile, long maxSize, String zipFile, double scale) throws IOException {
+        compressImg(new File(srcFile), maxSize, new File(zipFile), scale);
     }
 
     /**
@@ -31,14 +31,14 @@ public class ImageUtil {
      * @return
      * @date 2020年11月18日
      */
-    public static void compressImg(File imageFile, long maxSize, File zipFile) throws IOException {
+    public static void compressImg(File imageFile, long maxSize, File zipFile, double scale) throws IOException {
         //long timeStart = System.currentTimeMillis();
         zipFile.delete();
         byte[] data = getByteByPic(imageFile);
         byte[] imgData = Arrays.copyOf(data, data.length);
         do {
             try {
-                imgData = compress(imgData, 0.8);
+                imgData = compress(imgData, scale);
             } catch (IOException e) {
                 throw new IllegalStateException("压缩图片过程中出错,请及时联系管理员!", e);
             }
@@ -71,8 +71,6 @@ public class ImageUtil {
                 }
             }
         } catch (IOException e) {
-            //log.warn("压缩图片失败：{}", e);
-            System.out.println("压缩图片失败：" + e);
             throw e;
         }
     }
@@ -101,8 +99,6 @@ public class ImageUtil {
                 ImageIO.write(tag, "JPEG", bOut);
                 return bOut.toByteArray();
             } catch (IOException e) {
-                //log.warn("压缩图片失败：{}", e);
-                System.out.println("压缩图片失败：" + e);
                 throw e;
             }
         }
@@ -122,8 +118,6 @@ public class ImageUtil {
         try (FileImageOutputStream imageOutput = new FileImageOutputStream(zipFile)){
             imageOutput.write(data, 0, data.length);
         } catch (Exception ex) {
-            //log.warn("压缩图片失败：{}", ex);
-            System.out.println("压缩图片失败：" + ex);
         }
     }
 
