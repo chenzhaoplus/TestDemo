@@ -1,6 +1,8 @@
 package com.examples.test.util;
 
+import cn.hutool.core.io.IoUtil;
 import lombok.extern.slf4j.Slf4j;
+import sun.nio.ch.IOUtil;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageOutputStream;
@@ -34,7 +36,8 @@ public class ImageUtil {
     public static void compressImg(File imageFile, long maxSize, File zipFile, double scale) throws IOException {
         //long timeStart = System.currentTimeMillis();
         zipFile.delete();
-        byte[] data = getByteByPic(imageFile);
+        //byte[] data = getByteByPic(imageFile);
+        byte[] data = IoUtil.readBytes(new FileInputStream(imageFile));
         byte[] imgData = Arrays.copyOf(data, data.length);
         do {
             try {
