@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ImageUtil {
 
@@ -37,8 +38,11 @@ public class ImageUtil {
         //long timeStart = System.currentTimeMillis();
         zipFile.delete();
         //byte[] data = getByteByPic(imageFile);
-        byte[] data = IoUtil.readBytes(new FileInputStream(imageFile));
-        byte[] imgData = Arrays.copyOf(data, data.length);
+        byte[] imgData = null;
+        try(FileInputStream fis = new FileInputStream(imageFile)){
+            byte[] data = IoUtil.readBytes(fis);
+            imgData = Arrays.copyOf(data, data.length);
+        }
         do {
             try {
                 imgData = compress(imgData, scale);
